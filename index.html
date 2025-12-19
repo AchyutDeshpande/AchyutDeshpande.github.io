@@ -3,270 +3,319 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Achyut Deshpande | Portfolio</title>
+    <title>Achyut Deshpande - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* CSS Styles */
-        :root {
-            --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --text-color: #333;
-            --bg-color: #f4f4f9;
-            --sidebar-width: 300px;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            display: flex;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+            min-height: 100vh;
+            font-family: 'Roboto', Arial, sans-serif;
+            color: #222;
         }
-
-        /* Sidebar Layout */
-        .sidebar {
-            width: var(--sidebar-width);
-            background-color: #fff;
-            height: 100vh;
-            position: fixed;
-            padding: 40px 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+        .container {
+            max-width: 1100px;
+            margin: 2em auto;
+            padding: 2em;
+            border-radius: 32px;
+            background: rgba(255,255,255,0.7);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+        nav {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            text-align: center;
-            overflow-y: auto;
+            margin-bottom: 2em;
         }
-
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background-color: #ddd;
-            margin-bottom: 20px;
-            background-image: url('https://via.placeholder.com/150?text=AD'); /* Placeholder Image */
-            background-size: cover;
+        .logo {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 2em;
+            color: #3a86ff;
+            letter-spacing: 2px;
         }
-
-        .sidebar h1 {
-            font-size: 1.5rem;
-            margin: 10px 0;
-            color: var(--primary-color);
-        }
-
-        .sidebar p {
-            font-size: 0.9rem;
-            color: #666;
-            margin: 5px 0;
-        }
-
-        .social-links {
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: block;
-            margin: 5px 0;
+        .nav-links a {
+            color: #3a86ff;
             text-decoration: none;
-            color: var(--accent-color);
-            font-size: 0.9rem;
+            margin: 0 1em;
+            font-weight: 500;
+            font-size: 1em;
+            transition: color 0.2s;
+            border-bottom: 2px solid transparent;
         }
-
-        /* Main Content Layout */
-        .main-content {
-            margin-left: var(--sidebar-width);
-            padding: 50px 60px;
-            width: 100%;
+        .nav-links a:hover {
+            color: #8338ec;
+            border-bottom: 2px solid #8338ec;
         }
-
-        section {
-            margin-bottom: 50px;
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        h2 {
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 10px;
-            color: var(--primary-color);
-            margin-top: 0;
-        }
-
-        h3 {
-            margin-bottom: 5px;
-            color: #444;
-        }
-
-        .date {
-            font-size: 0.85rem;
-            color: #888;
-            font-style: italic;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .item {
-            margin-bottom: 25px;
-        }
-
-        .skills-grid {
+        .hero {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            align-items: center;
+            gap: 2em;
+            margin-bottom: 2em;
         }
-
-        .skill-tag {
-            background-color: #e1f0fa;
-            color: var(--primary-color);
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            font-weight: 600;
+        .hero-content {
+            flex: 1 1 350px;
         }
-
+        .hero-content h2 {
+            color: #8338ec;
+            font-size: 1.3em;
+            margin-bottom: 0.5em;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        .hero-content h1 {
+            font-size: 2.8em;
+            color: #3a86ff;
+            margin-bottom: 0.3em;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        .hero-content h3 {
+            font-size: 1.3em;
+            color: #3a86ff;
+            margin-bottom: 1em;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        .hero-content p {
+            color: #222;
+            line-height: 1.7;
+            margin-bottom: 1.5em;
+            font-size: 1.1em;
+            background: rgba(58,134,255,0.07);
+            border-radius: 12px;
+            padding: 1em;
+            box-shadow: 0 2px 8px rgba(58,134,255,0.08);
+        }
+        .social-links {
+            display: flex;
+            gap: 1em;
+            margin-bottom: 1.5em;
+        }
+        .social-links a {
+            color: #3a86ff;
+            font-size: 1.7em;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .social-links a:hover {
+            color: #8338ec;
+        }
+        .cv-button {
+            background: linear-gradient(90deg, #3a86ff 0%, #8338ec 100%);
+            border: none;
+            color: #fff;
+            padding: 0.8em 2em;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 50px;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: bold;
+            box-shadow: 0 0 12px #3a86ff44;
+            transition: background 0.3s, color 0.3s;
+        }
+        .cv-button:hover {
+            background: linear-gradient(90deg, #8338ec 0%, #3a86ff 100%);
+            color: #fff;
+        }
+        .hero-image {
+            flex: 0 0 280px;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3a86ff 0%, #8338ec 100%);
+            box-shadow: 0 0 32px #3a86ff44;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-image img {
+            width: 90%;
+            height: 90%;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 0 24px #8338ec44;
+        }
+        section {
+            margin-bottom: 2em;
+            padding: 2em;
+            border-radius: 24px;
+            background: rgba(255,255,255,0.6);
+            box-shadow: 0 2px 16px rgba(58,134,255,0.08);
+        }
+        section h2 {
+            color: #3a86ff;
+            font-size: 2em;
+            margin-bottom: 1em;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        section p, section li {
+            color: #222;
+            line-height: 1.7;
+            margin-bottom: 0.5em;
+            font-size: 1.08em;
+        }
         ul {
-            padding-left: 20px;
+            list-style-type: disc;
+            margin-left: 2em;
         }
-
-        li {
-            margin-bottom: 5px;
+        .experience, .project {
+            margin-bottom: 1.5em;
         }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            body {
+        .contact-links a {
+            color: #3a86ff;
+            text-decoration: none;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        .contact-links a:hover {
+            color: #8338ec;
+        }
+        .view-project {
+            color: #8338ec;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Montserrat', Arial, sans-serif;
+            transition: color 0.2s;
+        }
+        .view-project:hover {
+            color: #3a86ff;
+        }
+        @media (max-width: 900px) {
+            .hero {
                 flex-direction: column;
+                padding: 2em 0;
             }
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                padding: 30px 20px;
+            .hero-content {
+                max-width: 100%;
             }
-            .main-content {
-                margin-left: 0;
-                padding: 20px;
+            .hero-image {
+                width: 180px;
+                height: 180px;
+            }
+            section {
+                padding: 1.2em 1em;
             }
         }
     </style>
 </head>
 <body>
-
-    <aside class="sidebar">
-        <div class="Image"></div>
-        <h1>Achyut Deshpande</h1>
-        <p>B.Tech Mechanical Engineering Student</p>
-        
-        <div class="contact-info">
-            <p>Miraj, Maharashtra 416410</p>
-            <p>+91-7420878362</p>
-        </div>
-
-        <div class="social-links">
-            <a href="mailto:atharvaadeshpande2004@gmail.com">atharvaadeshpande2004@gmail.com</a>
-            <a href="https://www.linkedin.com/in/achyut-deshpande-b34369334" target="_blank">LinkedIn Profile</a>
-        </div>
-    </aside>
-
-    <main class="main-content">
-        
+    <div class="container">
+        <nav>
+            <div class="logo">Portfolio</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#education">Education</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h2>Hey there, It's Me</h2>
+                <h1>Ankush Desai</h1>
+                <h3>And I'm a Robotics Engineer</h3>
+                <p>I'm Ankush, currently wrangling robots at the University of Minnesota (and occasionally my own coffee machine ☕). I speak fluent Python, ROS, and sarcasm 😏. I once convinced a robot to deliver paperwork 90% faster—sadly, it still refuses to make me a sandwich. Ranked 3rd in ABU Robocon 2022, so my robots are almost as competitive as I am at Mario Kart. If you love robotic manipulation, autonomous navigation, or just want to geek out about machine learning, you're in the right place! 🚀</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/achyut-deshpande-b34369334/" target="_blank">in</a>
+                    
+                    </a>
+                    <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=CllgCJvrcCnTHNgzXlsPRfjjmzrXnZqxXgJRsNPMwvldZRdSXjVSstFJXTjhcWXvBvjLVksgFHL" target="_blank">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" alt="Gmail" style="width: 24px; height: 24px;">
+                    </a>
+                </div>
+                <a href="22UME009_Achyut A. Deshpande.pdf" target="_blank">
+                    <button class="cv-button">View Resume</button>
+                </a>
+            </div>
+            <div class="hero-image">
+                <img src="Image.jpeg" alt="Achyut Deshpande Profile Picture">
+            </div>
+        </section>
         <section id="education">
             <h2>Education</h2>
-            
-            <div class="item">
-                <h3>DKTE'S Textile & Engineering Institute, Ichalkaranji</h3>
-                <span class="date">2022 - Present (Pursuing)</span>
-                <p><strong>B.Tech in Mechanical Engineering</strong></p>
+            <div class="experience">
+                <h3>DKTE'S Textile & Engineering Institute, Ichalkaranji  (Nov. 2022 - June 2026) </h3>
+                <p>B. TECH Final Year Mechanical Engineering</p>
+                
             </div>
-
-            <div class="item">
-                <h3>Vidya Mandir Prashala and Junior College, Miraj</h3>
-                <span class="date">2022</span>
-                <p>HSC - 68.00%</p>
-            </div>
-
-            <div class="item">
-                <h3>Ideal English School, Miraj</h3>
-                <p>SSC - 71.40%</p>
+            <div class="experience">
+                <h3>Vidya Mandir Prashala and Junior College, Miraj (June. 2020 - May 2022) </h3>
             </div>
         </section>
-
         <section id="experience">
-            <h2>Internship Experience</h2>
-            
-            <div class="item">
-                <h3>Rotadyne Precision Engineering Pvt. Ltd.</h3>
-                <span class="date">Nov 2024</span>
-                <p><strong>Intern - Quality Control Department</strong></p>
-                <p>Gained hands-on experience in quality assurance processes and precision engineering standards.</p>
+            <h2>Experience</h2>
+            <div class="experience">
+                <h3>Rotadyne Precision Engineering Private Limited | Quality Control Intern (Dec. 2024 - Jan. 2025) </h3>
+               <ul> 
+                <p>Worked on quality assurance processes and precision engineering standards.</p>
+                </ul>
             </div>
-
-            <div class="item">
-                <h3>Mahabal Metals Pvt. Ltd.</h3>
-                <span class="date">June 2024</span>
-                <p><strong>Intern - Machining Department</strong></p>
-                <p>Worked on machining operations and observed manufacturing workflows.</p>
+            <div class="experience">
+                <h3>Mahabal Metals Private Limited | Manufacturing Intern (Jun. 2024 - Jul. 2024) </h3>
+                <ul>
+                    <p>Gained hands-on experience in manufacturing processes and operational efficiency.</p>
+                </ul>
             </div>
         </section>
-
         <section id="projects">
             <h2>Projects</h2>
-            
-            <div class="item">
+            <div class="project">
                 <h3>Thermochemical Energy Storage (TCES) System</h3>
-                <p>Research project focused on investigating salt hydrates (SrBr2, SrCl2) to design a reactor that stores large amounts of energy in a compact system with minimal loss.</p>
+                <p>A research project focused on thermochemical energy storage by investigating various salt hydrates, such as SrBr2 and SrCl2. The project involves designing and testing a reactor to see how effectively it stores large amounts of energy in a compact system with minimal loss. </p>
+                
             </div>
-
-            <div class="item">
+            <div class="project">
                 <h3>Air-Based Rain Protection Helmet</h3>
-                <p><strong>Patent Application No. 454613-001</strong><br>
-                A conceptual project featuring an umbrella made of air dome-shaped structures around a helmet for rain protection.</p>
+                <p>The Umbrella Air Helmet is a conceptual project that Features an umbrella made of air dome-shaped structures around a helmet, Applied for Design Patent (Application No. 454613-001). </p>
+                
             </div>
-
-            <div class="item">
+            <div class="project">
                 <h3>Magnetic Damper</h3>
-                <p>Designed a piston-cylinder arrangement utilizing opposing magnets to effectively dampen vibrations.</p>
+                <p>A magnetic damper consists of a piston-cylinder arrangement that utilizes two opposing magnets to effectively dampen vibrations.</p>
+                
             </div>
-
-            <div class="item">
-                <h3>Water Surface Waste Collector</h3>
-                <p>Developed a stationary floating device inspired by the Seabin concept to collect floating waste from stagnant water bodies using low-cost materials.</p>
-            </div>
-
-            <div class="item">
+            <div class="project">
                 <h3>Customizable LCV</h3>
-                <p>Designed a modification for the carriage of small Light Commercial Vehicles (LCVs) to enable adaptability for different uses.</p>
+                <p>The Customizable LCV is a project that allows modification of the carriage of small light commercial vehicles (LCVs), enabling adaptability for different uses.</p>
+                
+            </div>
+            <div class="project">
+                <h3>Water Surface Waste Collector</h3>
+                <p>Water Surface Waste Collector Developed a stationary floating device, inspired By the Seabin concept, to collect floating waste from small stagnant water Bodies. Focused on low-cost materials and passive operation for easy use in Ponds and local lakes. </p>
+                
             </div>
         </section>
-
         <section id="skills">
-            <h2>Technical Skills</h2>
-            <div class="skills-grid">
-                <span class="skill-tag">AutoCAD 2D & 3D</span>
-                <span class="skill-tag">SolidWorks</span>
-                <span class="skill-tag">Fusion 360</span>
-                <span class="skill-tag">Catia</span>
-                <span class="skill-tag">Ansys Workbench</span>
-                <span class="skill-tag">C Programming</span>
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">MS Office</span>
-            </div>
-        </section>
-
-        <section id="achievements">
-            <h2>Certifications & Achievements</h2>
+            <h2>Skills</h2>
             <ul>
-                <li><strong>Six Sigma White Belt:</strong> Certified in continuous improvement and waste-reduction concepts.</li>
-                <li><strong>Certified Ready Engineer:</strong> Tata Technologies program in Advanced Automobile Design & Analysis.</li>
-                <li><strong>CSWA Certified:</strong> Certified SolidWorks Associate (Dassault Systèmes).</li>
-                <li><strong>NPTEL Certification:</strong> Advanced Machining Processes.</li>
-                <li><strong>3rd Prize:</strong> "Mech-Dart" Tech-Symposium 2K24.</li>
-                <li><strong>Participant:</strong> AAKRUTI Global 2024 (Sustainability Design Contest) & IET Karmaveer Expo 2024.</li>
+                <li> Design: AutoCAD 2D & 3D, Fusion 360 3D modeling, SolidWorks 3D modeling & Rendering, Catia 2D modeling, Ansys Workbench.
+                <li> Programming: Python, C.
+                <li> Microsoft Office Suite: Word, Excel, PowerPoint.
             </ul>
         </section>
-
-    </main>
-
+        <section id="Acievements & Certifications">
+            <h2>Acievements & Certifications</h2>
+            <ul>
+                <li> Six Sigma White Belt: solid understanding of continuous improvement tools, waste-reduction concepts, and basic quality management techniques. 
+                <li> Certified Ready Engineer: Completed Tata Technologies Ready Engineer Program in Advance Automobile Design, Analysis & Manufacturing.
+                <li> CSWA: Certified in SolidWorks by Dassault Systèmes, demonstrating proficiency in 3D CAD, design analysis, and engineering drawings.
+                <li> NPTEL Certification: Advanced Machining Processes.
+                <li> Third Prize in “Mech-Dart”: [Tech-Symposium 2K24] organized by DKTE Society’s Engineering Institute.
+                <li> AAKRUTI Global 2024 Participation Certification. 
+                <li>  IET Karmaveer Expo 2024 Participation Certificate.  
+            </ul>
+        </section>
+        <section id="Extracurricular Activities">
+            <h2>Extracurricular Activities</h2>
+            <ul>
+                <li> MESA committee Co-Ordinator, Member of IME, Member of SAE India, Member of E-cell DKTE.
+            </ul>
+        </section>
+        <section id="contact">
+            <h2>Contact</h2>
+            <p class="contact-links">Email: <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=CllgCJZbjmpwbSsPlfhnsnDsglrmMxMPXGNLnRCLMFbspJclDDvrmjnvwSBPqJdtTbMdcJZjlDB">atharvaadeshpande2004@gmail.com </a></p>
+            <p class="contact-links">LinkedIn: <a href="https://www.linkedin.com/in/achyut-deshpande-b34369334/" target="_blank">LinkedIn Profile</a></p>
+        </section>
+    </div>
 </body>
 </html>
