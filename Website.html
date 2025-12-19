@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achyut Deshpande | Portfolio</title>
+    <style>
+        /* CSS Styles */
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --text-color: #333;
+            --bg-color: #f4f4f9;
+            --sidebar-width: 300px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* Sidebar Layout */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: #fff;
+            height: 100vh;
+            position: fixed;
+            padding: 40px 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            overflow-y: auto;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-bottom: 20px;
+            background-image: url('https://via.placeholder.com/150?text=AD'); /* Placeholder Image */
+            background-size: cover;
+        }
+
+        .sidebar h1 {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            color: var(--primary-color);
+        }
+
+        .sidebar p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: block;
+            margin: 5px 0;
+            text-decoration: none;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 50px 60px;
+            width: 100%;
+        }
+
+        section {
+            margin-bottom: 50px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        h3 {
+            margin-bottom: 5px;
+            color: #444;
+        }
+
+        .date {
+            font-size: 0.85rem;
+            color: #888;
+            font-style: italic;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .item {
+            margin-bottom: 25px;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background-color: #e1f0fa;
+            color: var(--primary-color);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 30px 20px;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="profile-img"></div>
+        <h1>Achyut Deshpande</h1>
+        <p>B.Tech Mechanical Engineering Student</p>
+        
+        <div class="contact-info">
+            <p>Miraj, Maharashtra 416410</p>
+            <p>+91-7420878362</p>
+        </div>
+
+        <div class="social-links">
+            <a href="mailto:atharvaadeshpande2004@gmail.com">atharvaadeshpande2004@gmail.com</a>
+            <a href="https://www.linkedin.com/in/achyut-deshpande-b34369334" target="_blank">LinkedIn Profile</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        
+        <section id="education">
+            <h2>Education</h2>
+            
+            <div class="item">
+                <h3>DKTE'S Textile & Engineering Institute, Ichalkaranji</h3>
+                <span class="date">2022 - Present (Pursuing)</span>
+                <p><strong>B.Tech in Mechanical Engineering</strong></p>
+            </div>
+
+            <div class="item">
+                <h3>Vidya Mandir Prashala and Junior College, Miraj</h3>
+                <span class="date">2022</span>
+                <p>HSC - 68.00%</p>
+            </div>
+
+            <div class="item">
+                <h3>Ideal English School, Miraj</h3>
+                <p>SSC - 71.40%</p>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Internship Experience</h2>
+            
+            <div class="item">
+                <h3>Rotadyne Precision Engineering Pvt. Ltd.</h3>
+                <span class="date">Nov 2024</span>
+                <p><strong>Intern - Quality Control Department</strong></p>
+                <p>Gained hands-on experience in quality assurance processes and precision engineering standards.</p>
+            </div>
+
+            <div class="item">
+                <h3>Mahabal Metals Pvt. Ltd.</h3>
+                <span class="date">June 2024</span>
+                <p><strong>Intern - Machining Department</strong></p>
+                <p>Worked on machining operations and observed manufacturing workflows.</p>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            
+            <div class="item">
+                <h3>Thermochemical Energy Storage (TCES) System</h3>
+                <p>Research project focused on investigating salt hydrates (SrBr2, SrCl2) to design a reactor that stores large amounts of energy in a compact system with minimal loss.</p>
+            </div>
+
+            <div class="item">
+                <h3>Air-Based Rain Protection Helmet</h3>
+                <p><strong>Patent Application No. 454613-001</strong><br>
+                A conceptual project featuring an umbrella made of air dome-shaped structures around a helmet for rain protection.</p>
+            </div>
+
+            <div class="item">
+                <h3>Magnetic Damper</h3>
+                <p>Designed a piston-cylinder arrangement utilizing opposing magnets to effectively dampen vibrations.</p>
+            </div>
+
+            <div class="item">
+                <h3>Water Surface Waste Collector</h3>
+                <p>Developed a stationary floating device inspired by the Seabin concept to collect floating waste from stagnant water bodies using low-cost materials.</p>
+            </div>
+
+            <div class="item">
+                <h3>Customizable LCV</h3>
+                <p>Designed a modification for the carriage of small Light Commercial Vehicles (LCVs) to enable adaptability for different uses.</p>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <span class="skill-tag">AutoCAD 2D & 3D</span>
+                <span class="skill-tag">SolidWorks</span>
+                <span class="skill-tag">Fusion 360</span>
+                <span class="skill-tag">Catia</span>
+                <span class="skill-tag">Ansys Workbench</span>
+                <span class="skill-tag">C Programming</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">MS Office</span>
+            </div>
+        </section>
+
+        <section id="achievements">
+            <h2>Certifications & Achievements</h2>
+            <ul>
+                <li><strong>Six Sigma White Belt:</strong> Certified in continuous improvement and waste-reduction concepts.</li>
+                <li><strong>Certified Ready Engineer:</strong> Tata Technologies program in Advanced Automobile Design & Analysis.</li>
+                <li><strong>CSWA Certified:</strong> Certified SolidWorks Associate (Dassault Systèmes).</li>
+                <li><strong>NPTEL Certification:</strong> Advanced Machining Processes.</li>
+                <li><strong>3rd Prize:</strong> "Mech-Dart" Tech-Symposium 2K24.</li>
+                <li><strong>Participant:</strong> AAKRUTI Global 2024 (Sustainability Design Contest) & IET Karmaveer Expo 2024.</li>
+            </ul>
+        </section>
+
+    </main>
+
+</body>
+</html>
