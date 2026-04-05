@@ -13,7 +13,7 @@
             --bg-light: #f4f5f7;      
             --text-main: #333333;     
             --white: #ffffff;
-            --transition-snappy: 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* Engineered, snappy feel */
+            --transition-snappy: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         body {
@@ -23,7 +23,19 @@
             margin: 0;
             padding: 0;
             line-height: 1.7;
-            overflow-x: hidden; /* Prevent horizontal scroll from animations */
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- ANIMATED ENGINEERING BACKGROUND --- */
+        #engineering-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* Stays behind everything */
+            background-color: #fcfcfd;
         }
 
         /* --- TITLE FONT --- */
@@ -51,7 +63,6 @@
             transition: padding 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Class added via JS on scroll */
         .top-bar.scrolled {
             padding: 15px 50px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -73,13 +84,12 @@
         .hero {
             background-color: var(--carbon-black);
             color: var(--white);
-            padding: 180px 50px 100px 50px; /* Extra top padding for fixed nav */
+            padding: 180px 50px 100px 50px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 50px;
             position: relative;
-            overflow: hidden;
         }
 
         .hero-content {
@@ -151,10 +161,13 @@
         /* --- SECTIONS & GRIDS --- */
         .section {
             padding: 100px 50px;
+            position: relative;
+            z-index: 2; /* Keeps content above animated background */
         }
 
         .section-light {
-            background-color: var(--bg-light);
+            background-color: rgba(244, 245, 247, 0.85); /* Slightly transparent to see BG */
+            backdrop-filter: blur(5px);
         }
 
         .section-header {
@@ -174,18 +187,13 @@
 
         /* --- CONTENT BLOCKS (Cards) --- */
         .content-block {
-            background: var(--white);
+            background: rgba(255, 255, 255, 0.95);
             padding: 40px;
             border-top: 4px solid transparent;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
             height: 100%;
             box-sizing: border-box;
             transition: transform var(--transition-snappy), box-shadow var(--transition-snappy), border-color 0.3s ease;
-        }
-
-        .section:not(.section-light) .content-block {
-            background: var(--bg-light);
-            box-shadow: none;
         }
 
         .content-block:hover {
@@ -194,10 +202,29 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.12);
         }
 
-        .content-block h4 {
-            font-size: 1.4rem;
+        /* THE UNIFIED BOX STYLING */
+        .unified-box {
+            background: var(--white);
+            border: 1px solid #eaeaea;
+            border-top: 4px solid var(--facc-blue);
+            padding: 50px;
+        }
+        
+        .unified-box h3 {
+            color: var(--facc-blue);
+            margin-bottom: 25px;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+
+        .entry {
+            margin-bottom: 30px;
+        }
+
+        .entry h4 {
+            font-size: 1.2rem;
             color: var(--carbon-black);
-            margin-bottom: 12px;
+            margin-bottom: 5px;
         }
 
         .date-badge {
@@ -207,7 +234,7 @@
             padding: 5px 15px;
             font-size: 0.8rem;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -249,6 +276,8 @@
             padding: 50px 20px;
             font-size: 0.9rem;
             border-top: 4px solid var(--facc-blue);
+            position: relative;
+            z-index: 2;
         }
 
         /* --- SCROLL ANIMATION CLASSES --- */
@@ -263,12 +292,9 @@
             transform: translateY(0);
         }
 
-        /* Stagger delays for grid items */
         .delay-1 { transition-delay: 0.1s; }
         .delay-2 { transition-delay: 0.2s; }
         .delay-3 { transition-delay: 0.3s; }
-        .delay-4 { transition-delay: 0.4s; }
-        .delay-5 { transition-delay: 0.5s; }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 992px) {
@@ -278,10 +304,13 @@
             .contact-bar { justify-content: center; }
             .top-bar { padding: 15px 20px; }
             .hero-profile-img { width: 250px; height: 250px; }
+            .unified-box { padding: 30px; }
         }
     </style>
 </head>
 <body>
+
+    <canvas id="engineering-bg"></canvas>
 
     <nav class="top-bar" id="navbar">
         <div class="logo">DESHPANDE // ENG</div>
@@ -289,7 +318,8 @@
     </nav>
 
     <header class="hero">
-        <div class="hero-content reveal active"> <h1>Achyut Anant Deshpande</h1>
+        <div class="hero-content reveal active">
+            <h1>Achyut Anant Deshpande</h1>
             <h3>B. Tech Mechanical Engineering</h3>
             <p>Passionate about precision engineering, structural design, and innovative lightweight solutions. Constantly pushing boundaries and exploring new possibilities in the mechanical and automotive sectors.</p>
         </div>
@@ -308,44 +338,48 @@
             <h2>Professional Profile</h2>
         </div>
         
-        <div class="grid-2">
-            <div class="reveal delay-1">
-                <h3 style="margin-bottom: 25px; border-bottom: 2px solid var(--facc-blue); padding-bottom: 10px;">INTERNSHIP EXPERIENCE</h3>
+        <div class="unified-box reveal delay-1">
+            <div class="grid-2">
                 
-                <div class="content-block" style="margin-bottom: 30px;">
-                    <h4>Rotadyne Precision Engineering Pvt. Ltd.</h4>
-                    <span class="date-badge">Nov 2024</span>
-                    <p>Intern in the Quality Control Department. Focused on precision inspection and quality management systems.</p>
-                </div>
-
-                <div class="content-block">
-                    <h4>Mahabal Metals Private Limited</h4>
-                    <span class="date-badge">Jun 2024</span>
-                    <p>Intern in the Machining Department. Gained hands-on experience in manufacturing processes and industrial operations.</p>
-                </div>
-            </div>
-
-            <div class="reveal delay-2">
-                <h3 style="margin-bottom: 25px; border-bottom: 2px solid var(--facc-blue); padding-bottom: 10px;">EDUCATIONAL BACKGROUND</h3>
-                
-                <div class="content-block" style="margin-bottom: 30px;">
-                    <h4>DKTE'S Textile & Engineering Institute, Ichalkaranji</h4>
-                    <span class="date-badge">2022 - Pursuing</span>
-                    <p><strong>B. Tech Final Year Mechanical</strong><br>CGPA: 6.65</p>
-                </div>
-
-                <div class="grid-2" style="gap: 30px;">
-                    <div class="content-block">
-                        <h4 style="font-size: 1.1rem;">Vidya Mandir Prashala</h4>
-                        <span class="date-badge">2022</span>
-                        <p>HSC: 68.00%</p>
+                <div>
+                    <h3>INTERNSHIP EXPERIENCE</h3>
+                    
+                    <div class="entry">
+                        <h4>Rotadyne Precision Engineering Pvt. Ltd.</h4>
+                        <span class="date-badge">Nov 2024</span>
+                        <p>Intern in the Quality Control Department. Focused on precision inspection and quality management systems.</p>
                     </div>
-                    <div class="content-block">
-                        <h4 style="font-size: 1.1rem;">Ideal English School</h4>
-                        <span class="date-badge">2020</span>
-                        <p>SSC: 71.40%</p>
+
+                    <div class="entry">
+                        <h4>Mahabal Metals Private Limited</h4>
+                        <span class="date-badge">Jun 2024</span>
+                        <p>Intern in the Machining Department. Gained hands-on experience in manufacturing processes and industrial operations.</p>
                     </div>
                 </div>
+
+                <div>
+                    <h3>EDUCATIONAL BACKGROUND</h3>
+                    
+                    <div class="entry">
+                        <h4>DKTE'S Textile & Engineering Institute, Ichalkaranji</h4>
+                        <span class="date-badge">2022 - Pursuing</span>
+                        <p><strong>B. Tech Final Year Mechanical</strong><br>CGPA: 7.02</p>
+                    </div>
+
+                    <div class="grid-2" style="gap: 20px;">
+                        <div class="entry">
+                            <h4 style="font-size: 1.1rem;">Vidya Mandir Prashala</h4>
+                            <span class="date-badge">2022</span>
+                            <p>HSC: 68.00%</p>
+                        </div>
+                        <div class="entry">
+                            <h4 style="font-size: 1.1rem;">Ideal English School</h4>
+                            <span class="date-badge">2020</span>
+                            <p>SSC: 71.40%</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -457,28 +491,84 @@
 
             // 2. Intersection Observer for Scroll Animations
             const revealElements = document.querySelectorAll('.reveal');
-            
             const revealObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Add active class to trigger CSS animation
                         entry.target.classList.add('active');
-                        // Optional: stop observing once revealed so it doesn't animate out/in again
                         observer.unobserve(entry.target); 
                     }
                 });
-            }, {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15 // Element triggers when 15% visible
-            });
+            }, { root: null, rootMargin: '0px', threshold: 0.15 });
 
             revealElements.forEach(el => {
-                // Skip items that are already active (like the hero section)
-                if (!el.classList.contains('active')) {
-                    revealObserver.observe(el);
-                }
+                if (!el.classList.contains('active')) revealObserver.observe(el);
             });
+
+            // 3. ENGINEERING BACKGROUND MESH ANIMATION
+            const canvas = document.getElementById('engineering-bg');
+            const ctx = canvas.getContext('2d');
+            let width, height, particles;
+
+            function initBackground() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                particles = [];
+                // Number of nodes based on screen size
+                const particleCount = Math.floor((width * height) / 15000);
+
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 0.5, // Slow horizontal movement
+                        vy: (Math.random() - 0.5) * 0.5  // Slow vertical movement
+                    });
+                }
+            }
+
+            function animateBackground() {
+                requestAnimationFrame(animateBackground);
+                ctx.clearRect(0, 0, width, height);
+
+                // Update and draw nodes
+                for (let i = 0; i < particles.length; i++) {
+                    let p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    // Bounce off walls
+                    if (p.x < 0 || p.x > width) p.vx *= -1;
+                    if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                    // Draw Node
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(26, 94, 128, 0.3)'; // FACC Blue, semi-transparent
+                    ctx.fill();
+
+                    // Connect nearest nodes with lines (Truss effect)
+                    for (let j = i + 1; j < particles.length; j++) {
+                        let p2 = particles[j];
+                        let dist = Math.sqrt(Math.pow(p.x - p2.x, 2) + Math.pow(p.y - p2.y, 2));
+                        
+                        if (dist < 120) { // Connection threshold
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            // Opacity based on distance
+                            ctx.strokeStyle = `rgba(26, 94, 128, ${0.15 - dist/800})`;
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            initBackground();
+            animateBackground();
+
+            // Handle window resize
+            window.addEventListener('resize', initBackground);
         });
     </script>
 </body>
