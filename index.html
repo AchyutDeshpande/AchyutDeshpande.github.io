@@ -9,8 +9,8 @@
         /* --- BRANDING & VARIABLES --- */
         :root {
             --facc-blue: #1A5E80;     
-            --facc-cyan: #22A7F0;     
             --carbon-black: #111111;  
+            --bg-light: #f4f5f7;      
             --text-main: #333333;     
             --white: #ffffff;
             --transition-snappy: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -18,17 +18,16 @@
 
         body {
             font-family: 'Aptos', 'Open Sans', sans-serif;
+            background-color: var(--white);
             color: var(--text-main);
             margin: 0;
             padding: 0;
             line-height: 1.7;
             overflow-x: hidden;
             position: relative;
-            /* Pure White Background */
-            background-color: var(--white); 
         }
 
-        /* --- THE ADVANCED CANVAS LAYER --- */
+        /* --- ANIMATED ENGINEERING BACKGROUND --- */
         #engineering-bg {
             position: fixed;
             top: 0;
@@ -36,9 +35,7 @@
             width: 100vw;
             height: 100vh;
             z-index: -1; 
-            pointer-events: none;
-            mix-blend-mode: multiply; /* Makes the blue lines look like ink on the white bg */
-            opacity: 0.8;
+            background-color: #fcfcfd;
         }
 
         /* --- TITLE FONT --- */
@@ -51,15 +48,15 @@
 
         /* --- HERO SECTION --- */
         .hero {
-            background-color: transparent; /* Changed to transparent to see the engine */
-            color: var(--carbon-black);
-            padding: 100px 50px;
+            background-color: var(--carbon-black);
+            color: var(--white);
+            /* Padding adjusted since top nav bar is removed */
+            padding: 100px 50px 100px 50px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 50px;
             position: relative;
-            overflow: hidden;
         }
 
         .hero-content {
@@ -68,9 +65,28 @@
             z-index: 2;
         }
 
-        .hero h1 { font-size: 4rem; margin-bottom: 15px; line-height: 1.1; color: var(--carbon-black); }
-        .hero h3 { font-size: 1.5rem; color: var(--facc-blue); text-transform: none; font-weight: 600; margin-bottom: 30px; }
-        .hero p { color: #555555; max-width: 600px; margin-bottom: 0; font-size: 1.1rem; }
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            line-height: 1.1;
+            color: var(--white);
+        }
+
+        .hero h3 {
+            font-size: 1.5rem;
+            color: var(--facc-blue);
+            font-family: 'Open Sans', sans-serif;
+            text-transform: none;
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        .hero p {
+            color: #cccccc;
+            max-width: 600px;
+            margin-bottom: 0;
+            font-size: 1.1rem;
+        }
 
         .hero-profile-img {
             width: 320px;
@@ -78,12 +94,13 @@
             object-fit: cover;
             border: 4px solid var(--facc-blue);
             z-index: 2;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
             transition: transform var(--transition-snappy);
-            background-color: var(--white);
         }
 
-        .hero-profile-img:hover { transform: scale(1.03) rotate(-1deg); }
+        .hero-profile-img:hover {
+            transform: scale(1.05) rotate(-2deg);
+        }
 
         /* --- CONTACT BAR --- */
         .contact-bar {
@@ -95,58 +112,108 @@
             font-size: 0.95rem;
             flex-wrap: wrap;
             align-items: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        .contact-bar a { color: var(--white); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; }
-        .contact-bar a:hover { opacity: 0.7; text-decoration: underline; }
-        
-        .resume-link { background-color: var(--white); color: var(--facc-blue) !important; padding: 5px 15px; border-radius: 4px; }
-        .resume-link:hover { background-color: #e0e0e0; text-decoration: none !important; }
+        .contact-bar a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .contact-bar a:hover {
+            opacity: 0.7;
+            text-decoration: underline;
+        }
+
+        .resume-link {
+            background-color: var(--white);
+            color: var(--facc-blue) !important;
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .resume-link:hover {
+            background-color: #e0e0e0;
+            text-decoration: none !important;
+        }
 
         /* --- SECTIONS & GRIDS --- */
-        .section { padding: 100px 50px; position: relative; z-index: 2; }
-        .section-light { background-color: transparent; }
-        .section-header { margin-bottom: 60px; border-left: 6px solid var(--facc-blue); padding-left: 20px; }
-        .section-header h2 { font-size: 2.5rem; color: var(--carbon-black); letter-spacing: 1px; }
+        .section {
+            padding: 100px 50px;
+            position: relative;
+            z-index: 2; 
+        }
+
+        .section-light {
+            background-color: rgba(244, 245, 247, 0.85); 
+            backdrop-filter: blur(5px);
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+            border-left: 6px solid var(--facc-blue);
+            padding-left: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--carbon-black);
+            letter-spacing: 1px;
+        }
 
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
 
-        /* --- CONTENT BLOCKS --- */
+        /* --- CONTENT BLOCKS (Cards) --- */
         .content-block {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.95);
             padding: 40px;
             border-top: 4px solid transparent;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
             height: 100%;
             box-sizing: border-box;
             transition: transform var(--transition-snappy), box-shadow var(--transition-snappy), border-color 0.3s ease;
         }
 
         .content-block:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px);
             border-top: 4px solid var(--facc-blue);
             box-shadow: 0 20px 40px rgba(0,0,0,0.12);
         }
 
+        /* THE UNIFIED BOX STYLING */
         .unified-box {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(0,0,0,0.05);
+            background: var(--white);
+            border: 1px solid #eaeaea;
             border-top: 4px solid var(--facc-blue);
             padding: 50px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
         }
         
-        .unified-box h3 { color: var(--facc-blue); margin-bottom: 25px; border-bottom: 2px solid #eaeaea; padding-bottom: 10px; }
-        .entry { margin-bottom: 30px; }
-        .entry h4 { font-size: 1.2rem; color: var(--carbon-black); margin-bottom: 5px; }
+        .unified-box h3 {
+            color: var(--facc-blue);
+            margin-bottom: 25px;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+
+        .entry {
+            margin-bottom: 30px;
+        }
+
+        .entry h4 {
+            font-size: 1.2rem;
+            color: var(--carbon-black);
+            margin-bottom: 5px;
+        }
 
         .date-badge {
             display: inline-block;
-            background-color: var(--facc-blue);
+            background-color: var(--carbon-black);
             color: var(--white);
             padding: 5px 15px;
             font-size: 0.8rem;
@@ -157,7 +224,15 @@
         }
 
         /* --- SKILLS LIST --- */
-        .skill-list { display: flex; flex-wrap: wrap; gap: 12px; list-style: none; padding: 0; margin: 15px 0 35px 0; }
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            list-style: none;
+            padding: 0;
+            margin: 15px 0 35px 0;
+        }
+
         .skill-list li {
             background-color: var(--white);
             color: var(--carbon-black);
@@ -165,29 +240,45 @@
             font-size: 0.9rem;
             font-weight: 600;
             border: 1px solid #d1d5da;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s, color 0.3s;
         }
-        .skill-list li:hover { background-color: var(--facc-blue); color: var(--white); border-color: var(--facc-blue); transform: translateY(-2px); }
+
+        .skill-list li:hover {
+            background-color: var(--facc-blue);
+            color: var(--white);
+            border-color: var(--facc-blue);
+        }
 
         ul.standard-list { padding-left: 20px; }
         ul.standard-list li { margin-bottom: 12px; }
 
         /* --- FOOTER --- */
         footer {
-            background-color: var(--white);
+            background-color: var(--carbon-black);
             color: #888888;
             text-align: center;
             padding: 50px 20px;
             font-size: 0.9rem;
-            border-top: 2px solid #eaeaea;
+            border-top: 4px solid var(--facc-blue);
             position: relative;
             z-index: 2;
         }
 
-        /* --- SCROLL ANIMATIONS --- */
-        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
+        /* --- SCROLL ANIMATION CLASSES --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 992px) {
@@ -207,10 +298,10 @@
     <header class="hero">
         <div class="hero-content reveal active">
             <h1>Achyut Anant Deshpande</h1>
-            <h3>B. Tech Mechanical Engineering <span>✈️</span></h3>
-            <p>Passionate about precision engineering, structural design, and innovative lightweight solutions. Constantly pushing boundaries and exploring new possibilities in the mechanical and aerospace sectors.</p>
+            <h3>B. Tech Mechanical Engineering</h3>
+            <p>Passionate about precision engineering, structural design, and innovative lightweight solutions. Constantly pushing boundaries and exploring new possibilities in the mechanical and automotive sectors.</p>
         </div>
-        <img src="profile.jpg" alt="Achyut Anant Deshpande" class="hero-profile-img reveal delay-2 active">
+        <img src="Image.jpeg" alt="Achyut Anant Deshpande" class="hero-profile-img reveal delay-2 active">
     </header>
 
     <div class="contact-bar reveal active delay-3">
@@ -218,7 +309,8 @@
         <span>✉️ atharvaadeshpande2004@gmail.com</span>
         <span>📍 Malkans Appt. flat no. 8 Watve Galli Brahmanpuri Miraj-416410</span>
         <a href="https://www.linkedin.com/in/achyut-deshpande-b34369334" target="_blank">🔗 LINKEDIN PROFILE</a>
-        <a href="resume.pdf" target="_blank" class="resume-link">📄 VIEW RESUME (PDF)</a>
+        
+        <a href="22UME009_Achyut A. Deshpande.pdf" target="_blank" class="resume-link">📄 RESUME (PDF)</a>
     </div>
 
     <section class="section">
@@ -228,26 +320,32 @@
         
         <div class="unified-box reveal delay-1">
             <div class="grid-2">
+                
                 <div>
                     <h3>INTERNSHIP EXPERIENCE</h3>
+                    
                     <div class="entry">
                         <h4>Rotadyne Precision Engineering Pvt. Ltd.</h4>
                         <span class="date-badge">Nov 2024</span>
                         <p>Intern in the Quality Control Department. Focused on precision inspection and quality management systems.</p>
                     </div>
+
                     <div class="entry">
                         <h4>Mahabal Metals Private Limited</h4>
                         <span class="date-badge">Jun 2024</span>
                         <p>Intern in the Machining Department. Gained hands-on experience in manufacturing processes and industrial operations.</p>
                     </div>
                 </div>
+
                 <div>
                     <h3>EDUCATIONAL BACKGROUND</h3>
+                    
                     <div class="entry">
                         <h4>DKTE'S Textile & Engineering Institute, Ichalkaranji</h4>
                         <span class="date-badge">2022 - Pursuing</span>
-                        <p><strong>B. Tech Final Year Mechanical</strong><br>CGPA: 6.65</p>
+                        <p><strong>B. Tech Final Year Mechanical</strong><br>CGPA: 7.02</p>
                     </div>
+
                     <div class="grid-2" style="gap: 20px;">
                         <div class="entry">
                             <h4 style="font-size: 1.1rem;">Vidya Mandir Prashala</h4>
@@ -257,10 +355,11 @@
                         <div class="entry">
                             <h4 style="font-size: 1.1rem;">Ideal English School</h4>
                             <span class="date-badge">2020</span>
-                            <p>SSC: 71.40%</p>
+                            <p>SSC: 81.40%</p>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -275,18 +374,22 @@
                 <h4>Thermochemical Energy Storage (TCES) System</h4>
                 <p>A research project focused on thermochemical energy storage by investigating salt hydrates (SrBr2 and SrCI2). Designed and tested a reactor to effectively store large amounts of energy compactly with minimal loss.</p>
             </div>
+
             <div class="content-block reveal delay-2">
                 <h4>Air-Based Rain Protection Helmet</h4>
                 <p>Conceptual design featuring an umbrella made of air dome-shaped structures around a helmet. Applied for Design Patent (Application No. 454613-001).</p>
             </div>
+
             <div class="content-block reveal delay-3">
                 <h4>Magnetic Damper</h4>
                 <p>Engineered a piston-cylinder arrangement utilizing two opposing magnets to effectively dampen vibrations.</p>
             </div>
+
             <div class="content-block reveal delay-1">
                 <h4>Customizable LCV</h4>
                 <p>Developed modifications for the carriage of small light commercial vehicles (LCVs), enabling maximum adaptability for different industrial uses.</p>
             </div>
+
             <div class="content-block reveal delay-2">
                 <h4>Water Surface Waste Collector</h4>
                 <p>Developed a stationary floating device, inspired by the Seabin concept, to collect floating waste from small stagnant water bodies. Focused on low-cost materials and passive operation.</p>
@@ -302,21 +405,31 @@
         <div class="grid-2">
             <div class="reveal delay-1">
                 <h3 style="margin-bottom: 15px;">TECHNICAL SKILLS</h3>
+                
                 <p style="margin:0; font-weight: bold; color: var(--facc-blue);">Design & Modeling</p>
                 <ul class="skill-list">
-                    <li>AutoCAD 2D & 3D</li><li>Fusion 360</li><li>SolidWorks</li><li>Catia</li>
+                    <li>AutoCAD 2D & 3D</li>
+                    <li>Fusion 360</li>
+                    <li>SolidWorks</li>
+                    <li>Catia</li>
                 </ul>
+
                 <p style="margin:0; font-weight: bold; color: var(--facc-blue);">Analysis & Programming</p>
                 <ul class="skill-list">
-                    <li>Ansys-Workbench</li><li>C Programming</li><li>Python</li>
+                    <li>Ansys-Workbench</li>
+                    <li>C Programming</li>
+                    <li>Python</li>
                 </ul>
+
                 <p style="margin:0; font-weight: bold; color: var(--facc-blue);">Software Tools</p>
                 <ul class="skill-list">
-                    <li>MS Office</li><li>Canva</li><li>Photoshop</li>
+                    <li>MS Office</li>
+                    <li>Canva</li>
+                    <li>Photoshop</li>
                 </ul>
             </div>
 
-            <div class="content-block reveal delay-2" style="background: var(--white); border: 1px solid #eaeaea;">
+            <div class="content-block reveal delay-2" style="background: var(--carbon-black); color: var(--white);">
                 <h3 style="color: var(--facc-blue); margin-bottom: 25px;">CERTIFICATES & ACHIEVEMENTS</h3>
                 <ul class="standard-list">
                     <li><strong>Six Sigma White Belt:</strong> Solid understanding of continuous improvement tools and waste-reduction concepts.</li>
@@ -326,10 +439,14 @@
                     <li><strong>Third Prize:</strong> "Mech-Dart" [Tech-Symposium 2K24] organized by DKTE Society's Engineering Institute.</li>
                     <li><strong>Participations:</strong> AAKRUTI Global 2024 (SOLIDWORKS design contest) & IET Karmaveer Expo 2024.</li>
                 </ul>
-                <hr style="border-color: #eaeaea; margin: 25px 0;">
+                
+                <hr style="border-color: #333; margin: 25px 0;">
+                
                 <h3 style="color: var(--facc-blue); margin-bottom: 15px; font-size: 1.1rem;">EXTRA-CURRICULAR</h3>
                 <ul class="standard-list" style="font-size: 0.9rem;">
-                    <li>MESA Committee Co-Ordinator</li><li>Member of IME & SAE India</li><li>Member of E-cell DKTE</li>
+                    <li>MESA Committee Co-Ordinator</li>
+                    <li>Member of IME & SAE India</li>
+                    <li>Member of E-cell DKTE</li>
                 </ul>
             </div>
         </div>
@@ -342,7 +459,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             
-            // --- SCROLL REVEAL ---
+            // Intersection Observer for Scroll Animations
             const revealElements = document.querySelectorAll('.reveal');
             const revealObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
@@ -351,129 +468,76 @@
                         observer.unobserve(entry.target); 
                     }
                 });
-            }, { root: null, rootMargin: '0px', threshold: 0.1 });
+            }, { root: null, rootMargin: '0px', threshold: 0.15 });
 
             revealElements.forEach(el => {
                 if (!el.classList.contains('active')) revealObserver.observe(el);
             });
 
-            // --- OPTIMIZED AEROSPACE ENGINE SPOOL-UP ANIMATION (No Particles, Centered) ---
+            // ENGINEERING BACKGROUND MESH ANIMATION
             const canvas = document.getElementById('engineering-bg');
-            const ctx = canvas.getContext('2d', { alpha: false }); 
-            let width, height;
-            
-            // Engine Dynamics
-            let engineSpeed = 0;           
-            const targetSpeed = 0.025;     
-            let engineStarted = false;     
-            let angleOffset = 0;           
-
-            // Colors
-            const colorPrimary = 'rgba(26, 94, 128, 0.4)'; // FACC Blue
+            const ctx = canvas.getContext('2d');
+            let width, height, particles;
 
             function initBackground() {
                 width = canvas.width = window.innerWidth;
                 height = canvas.height = window.innerHeight;
-                setTimeout(() => { engineStarted = true; }, 1000);
-            }
+                particles = [];
+                // Number of nodes based on screen size
+                const particleCount = Math.floor((width * height) / 15000);
 
-            // Function to draw complex curved turbine blades
-            function drawBlades(radius, count, curveIntensity, isRotor) {
-                const angleStep = (Math.PI * 2) / count;
-                for (let i = 0; i < count; i++) {
-                    ctx.save();
-                    ctx.rotate(i * angleStep);
-                    
-                    ctx.beginPath();
-                    ctx.moveTo(radius * 0.15, 0); 
-                    
-                    ctx.bezierCurveTo(
-                        radius * 0.4, radius * curveIntensity, 
-                        radius * 0.7, radius * (curveIntensity * 1.5), 
-                        radius, 0
-                    );
-                    
-                    ctx.lineTo(radius, radius * 0.02); 
-                    
-                    ctx.bezierCurveTo(
-                        radius * 0.7, radius * (curveIntensity * 1.2), 
-                        radius * 0.4, radius * (curveIntensity * 0.8), 
-                        radius * 0.15, radius * 0.05
-                    );
-
-                    if (isRotor) {
-                        ctx.fillStyle = `rgba(26, 94, 128, ${0.05 + Math.abs(engineSpeed)})`;
-                        ctx.fill();
-                        ctx.strokeStyle = colorPrimary;
-                        ctx.stroke();
-                    } else {
-                        ctx.strokeStyle = colorPrimary;
-                        ctx.stroke();
-                    }
-                    
-                    ctx.restore();
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 0.5, // Slow horizontal movement
+                        vy: (Math.random() - 0.5) * 0.5  // Slow vertical movement
+                    });
                 }
-            }
-
-            function drawEngineNode(cx, cy, radius) {
-                ctx.save();
-                ctx.translate(cx, cy);
-
-                ctx.strokeStyle = colorPrimary;
-                ctx.lineWidth = 1.5;
-                ctx.beginPath(); ctx.arc(0, 0, radius, 0, Math.PI * 2); ctx.stroke();
-                ctx.beginPath(); ctx.arc(0, 0, radius * 0.98, 0, Math.PI * 2); ctx.stroke();
-                
-                // Draw Stator
-                ctx.save();
-                ctx.rotate(-angleOffset * 0.1); 
-                drawBlades(radius * 0.9, 24, -0.2, false);
-                ctx.restore();
-
-                // Draw Primary Rotor
-                ctx.save();
-                ctx.rotate(angleOffset);
-                drawBlades(radius * 0.95, 16, 0.4, true);
-                
-                // Draw Spinner
-                ctx.beginPath();
-                ctx.arc(0, 0, radius * 0.18, 0, Math.PI * 2);
-                ctx.fillStyle = '#ffffff'; // White center to match background
-                ctx.fill();
-                ctx.stroke();
-                
-                // Spinner Spiral detail
-                ctx.beginPath();
-                ctx.moveTo(0,0);
-                for(let i=0; i<radius*0.18; i+=3) { 
-                    ctx.lineTo(Math.cos(i*0.2)*i, Math.sin(i*0.2)*i);
-                }
-                ctx.strokeStyle = colorPrimary;
-                ctx.stroke();
-                ctx.restore();
-
-                ctx.restore();
             }
 
             function animateBackground() {
                 requestAnimationFrame(animateBackground);
-                // Fill with white to clear the frame
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(0, 0, width, height);
+                ctx.clearRect(0, 0, width, height);
 
-                if (engineStarted && engineSpeed < targetSpeed) {
-                    engineSpeed += 0.00005; 
+                // Update and draw nodes
+                for (let i = 0; i < particles.length; i++) {
+                    let p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    // Bounce off walls
+                    if (p.x < 0 || p.x > width) p.vx *= -1;
+                    if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                    // Draw Node
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(26, 94, 128, 0.3)'; // FACC Blue, semi-transparent
+                    ctx.fill();
+
+                    // Connect nearest nodes with lines (Truss effect)
+                    for (let j = i + 1; j < particles.length; j++) {
+                        let p2 = particles[j];
+                        let dist = Math.sqrt(Math.pow(p.x - p2.x, 2) + Math.pow(p.y - p2.y, 2));
+                        
+                        if (dist < 120) { // Connection threshold
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            // Opacity based on distance
+                            ctx.strokeStyle = `rgba(26, 94, 128, ${0.15 - dist/800})`;
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        }
+                    }
                 }
-                angleOffset += engineSpeed;
-
-                // Center, medium-sized engine
-                let mainRadius = Math.min(width, height) * 0.35;
-                drawEngineNode(width / 2, height / 2, mainRadius);
             }
 
             initBackground();
             animateBackground();
 
+            // Handle window resize
             window.addEventListener('resize', initBackground);
         });
     </script>
