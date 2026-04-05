@@ -4,68 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Achyut Anant Deshpande - Mechanical Engineer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* --- COLOR THEME & FONT --- */
+        /* --- COLOR THEME & FONT REFINE --- */
         :root {
-            --bg-color: #f4f9ff;      /* Very Light Blue Background */
-            --card-bg: #ffffff;       /* White Cards */
-            --primary-blue: #003366;  /* Dark Blue for Text */
-            --accent-blue: #00509e;   /* Brighter Blue for Headings/Links */
+            --bg-color: #f7faff;      /* A very light, clean blue/grey background */
+            --card-bg: #ffffff;       /* Pure White Cards */
+            --primary-blue: #003366;  /* Deep Blue for Headers/Dividers */
+            --accent-blue: #00509e;   /* Brighter Blue for Text/Links */
+            --text-color: #333333;   /* A darker, clean grey for better readability */
         }
 
         body {
-            /* Keep BankGothic Lt BT as primary, fallback to sans-serif if user doesn't have it installed locally */
-            font-family: "BankGothic Lt BT", "Arial", sans-serif;
+            /* KEEPING BANKGOTHIC FOR TITLES, APTOS (SIMULATED) FOR BODY */
+            /* Simulated Aptos stack: 'Aptos', 'Open Sans', 'Roboto', 'Helvetica', 'Arial', sans-serif */
+            font-family: 'Aptos', 'Open Sans', 'Roboto', sans-serif;
             background-color: var(--bg-color);
-            color: var(--primary-blue);
+            color: var(--text-color);
             margin: 0;
             padding: 0;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
-        /* --- LAYOUT & SOFT CORNERS --- */
+        /* --- TITLE FONT (Keep BankGothic simulation) --- */
+        h1, h2, h3, .card-title {
+            /* Simulating BankGothic with a distinct serif/sans stack */
+            font-family: 'BankGothic Lt BT', 'Oswald', sans-serif;
+            color: var(--primary-blue);
+            margin-top: 0;
+        }
+
+        h1 { font-size: 2.8rem; margin-bottom: 0.5rem; }
+        h2 { font-size: 1.8rem; border-bottom: 2px solid var(--accent-blue); padding-bottom: 5px; margin-bottom: 20px;}
+        h3 { font-size: 1.4rem; color: var(--accent-blue); }
+
+        /* --- REFINED GRID LAYOUT --- */
         .container {
-            max-width: 900px;
+            max-width: 1200px; /* Wider container for 2 columns */
             margin: 0 auto;
             padding: 20px;
         }
 
-        header {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: var(--card-bg);
-            border-radius: 0 0 30px 30px; /* Soft bottom corners */
-            box-shadow: 0 10px 25px rgba(0, 80, 158, 0.08);
-            margin-bottom: 3rem;
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr; /* Left is narrow, Right is wide */
+            gap: 30px; /* Space between columns */
         }
 
+        @media (max-width: 992px) {
+            .grid-container {
+                grid-template-columns: 1fr; /* Single column on smaller screens */
+            }
+        }
+
+        /* --- COMPACT HEADER (Refined & Attractive) --- */
+        header {
+            background: linear-gradient(135deg, var(--primary-blue), #004080);
+            color: #ffffff;
+            padding: 5rem 2rem;
+            border-radius: 0 0 50px 50px; /* VERY soft, attractive bottom curves */
+            box-shadow: 0 15px 35px rgba(0, 51, 102, 0.15);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        /* Profile Photo Integration */
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Pure Circle */
+            overflow: hidden;
+            margin: 0 auto 20px auto;
+            border: 5px solid #ffffff;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            object-fit: cover;
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Crop-to-fit */
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+            text-align: left;
+            padding: 0 50px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .contact-item a {
+            color: #ffffff;
+            font-weight: normal;
+        }
+
+        /* --- CARDS & SOFT CORNERS --- */
         .card {
             background: var(--card-bg);
-            border-radius: 20px; /* Soft Corners */
+            border-radius: 20px; /* VERY generous rounded corners */
             padding: 30px;
             margin-bottom: 30px;
-            box-shadow: 0 8px 20px rgba(0, 80, 158, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 80, 158, 0.08);
             
-            /* Animation Setup */
+            /* Enhanced Animation Setup */
             opacity: 0; 
-            transform: translateY(40px);
+            transform: scale(0.95) translateY(40px); /* Subtle scale as well */
             transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.3s ease;
         }
 
         .card:hover {
-            box-shadow: 0 12px 28px rgba(0, 80, 158, 0.15);
-            transform: translateY(-5px) !important; /* Slight lift on hover */
+            box-shadow: 0 15px 40px rgba(0, 80, 158, 0.15);
+            transform: scale(1.02) !important; /* Slight upscale and lift */
         }
 
-        /* Triggered by JavaScript when scrolled into view */
+        /* Triggered by JavaScript */
         .card.visible {
             opacity: 1;
-            transform: translateY(0);
-        }
-
-        h1, h2, h3 {
-            color: var(--accent-blue);
-            margin-top: 0;
+            transform: scale(1) translateY(0);
         }
 
         a {
@@ -85,93 +152,144 @@
         li {
             margin-bottom: 10px;
         }
-
-        .contact-info {
+        
+        /* Specific Refinement for Skill List */
+        .skill-list {
             display: flex;
-            justify-content: center;
-            gap: 20px;
             flex-wrap: wrap;
-            margin-top: 15px;
+            gap: 10px;
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .skill-list li {
+            background-color: #e0f0ff;
+            color: var(--accent-blue);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        /* Footer Refinement */
+        footer {
+            background: var(--primary-blue);
+            color: #ffffff;
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-top: 3rem;
+            border-radius: 50px 50px 0 0; /* Soft curves on top */
         }
     </style>
 </head>
 <body>
 
     <header class="card visible" style="transform: none; opacity: 1;">
-        <h1>Achyut Anant Deshpande [cite: 1]</h1>
-        <h3>B. Tech Mechanical Engineering [cite: 7]</h3>
-        <p>Malkans Appt. flat no. 8 Watve Galli Brahmanpuri Miraj-416410 [cite: 4]</p>
+        <div class="profile-photo">
+            <img src="https://i.ibb.co/hK8bB9q/Achyut-Deshpande-Profile-Color.png" alt="Achyut Anant Deshpande">
+        </div>
+
+        <h1>Achyut Anant Deshpande</h1>
+        <h3>B. Tech Mechanical Engineering</h3>
+        <p>Malkans Appt. flat no. 8 Watve Galli Brahmanpuri Miraj-416410</p>
         
-        <div class="contact-info">
-            <span>📞 7420878362 [cite: 3]</span>
-            <span>✉️ atharvaadeshpande2004@gmail.com [cite: 4]</span>
-            <span>🔗 <a href="https://www.linkedin.com/in/achyut-deshpande-b34369334" target="_blank">LinkedIn Profile [cite: 5]</a></span>
+        <div class="contact-grid">
+            <div class="contact-item"><span>📞 7420878362</span></div>
+            <div class="contact-item"><span>✉️ atharvaadeshpande2004@gmail.com</span></div>
+            <div class="contact-item"><span>🔗 <a href="https://www.linkedin.com/in/achyut-deshpande-b34369334" target="_blank">LinkedIn Profile</a></span></div>
         </div>
     </header>
 
     <div class="container">
         
-        <section class="card">
-            <h2>Educational Background [cite: 6]</h2>
-            <ul>
-                <li><strong>DKTE'S Textile & Engineering Institute, Ichalkaranji [cite: 7]</strong><br>
-                B. TECH Final Year Mechanical (2022-Pursuing) | CGPA: 6.65 [cite: 7]</li>
-                <li><strong>Vidya Mandir Prashala and Junior College, Miraj [cite: 8]</strong><br>
-                HSC: 68.00% (2022) [cite: 9, 10]</li>
-                <li><strong>Ideal English School, Miraj [cite: 11]</strong><br>
-                SSC: 71.40% (2020) [cite: 12, 15]</li>
-            </ul>
-        </section>
+        <div class="grid-container">
+            
+            <aside>
+                <section class="card">
+                    <h2>Technical Skills</h2>
+                    <p><strong>Design & Modeling:</strong></p>
+                    <ul class="skill-list">
+                        <li>AutoCAD 2D & 3D</li>
+                        <li>Fusion 360</li>
+                        <li>SolidWorks</li>
+                        <li>Catia</li>
+                    </ul>
+                    <p><strong>Analysis & Programming:</strong></p>
+                    <ul class="skill-list">
+                        <li>Ansys-Workbench</li>
+                        <li>C programming</li>
+                        <li>Python</li>
+                    </ul>
+                    <p><strong>Other Tools:</strong></p>
+                    <ul class="skill-list">
+                        <li>MS Office</li>
+                        <li>Canva</li>
+                        <li>Photoshop</li>
+                    </ul>
+                </section>
 
-        <section class="card">
-            <h2>Internship Experience [cite: 13]</h2>
-            <ul>
-                <li><strong>Rotadyne Precision Engineering Private Limited. [cite: 16]</strong><br>
-                Intern in the Quality Control Department (11/2024) [cite: 17]</li>
-                <li><strong>Mahabal Metals Private Limited. [cite: 18]</strong><br>
-                Intern in the Machining Department (06/2024) [cite: 19]</li>
-            </ul>
-        </section>
+                <section class="card">
+                    <h2>Certificates & Achievements</h2>
+                    <ul>
+                        <li>Certified in Six Sigma White Belt.</li>
+                        <li>Tata Technologies Ready Engineer (Advance Automobile Design).</li>
+                        <li>CSWA-certified in SolidWorks by Dassault Systèmes.</li>
+                        <li>NPTEL Certification - Advanced Machining Processes.</li>
+                        <li>Third Prize in "Mech-Dart" [Tech-Symposium 2K24].</li>
+                        <li>AAKRUTI Global 2024 & IET Karmaveer Expo 2024.</li>
+                    </ul>
+                </section>
 
-        <section class="card">
-            <h2>Projects [cite: 20]</h2>
-            <ul>
-                <li><strong>Thermochemical Energy Storage (TCES) System [cite: 21]:</strong> Investigating salt hydrates (SrBr2 and SrCI2) and designing/testing a reactor to store large amounts of energy compactly with minimal loss[cite: 21, 22].</li>
-                <li><strong>Air-Based Rain Protection Helmet[cite: 23]:</strong> Conceptual design featuring an air dome-shaped umbrella around a helmet. Applied for Design Patent (Application No. 454613-001)[cite: 23, 24].</li>
-                <li><strong>Magnetic Damper [cite: 25]:</strong> Piston-cylinder arrangement utilizing two opposing magnets to effectively dampen vibrations[cite: 25, 27].</li>
-                <li><strong>Customizable LCV [cite: 28]:</strong> Modifiable carriage for small light commercial vehicles (LCVs), enabling adaptability for various uses[cite: 28].</li>
-                <li><strong>Water Surface Waste Collector [cite: 29]:</strong> Low-cost, passive stationary floating device inspired by the Seabin concept to collect waste from ponds and local lakes[cite: 29, 30].</li>
-            </ul>
-        </section>
+                <section class="card">
+                    <h2>Extra-Curricular</h2>
+                    <ul>
+                        <li>MESA committee Co-Ordinator.</li>
+                        <li>Member of IME.</li>
+                        <li>Member of SAE India.</li>
+                        <li>Member of E-cell DKTE.</li>
+                    </ul>
+                </section>
+            </aside>
 
-        <section class="card">
-            <h2>Technical Skills [cite: 40]</h2>
-            <p><strong>Design & Modeling:</strong> AutoCAD 2D & 3D [cite: 40], Fusion 360 [cite: 41], SolidWorks (3D modeling, Rendering) [cite: 42], Catia[cite: 43].</p>
-            <p><strong>Analysis & Programming:</strong> Ansys-Workbench [cite: 44], C programming [cite: 48], Python[cite: 49].</p>
-            <p><strong>Other Tools:</strong> MS Office [cite: 47], Canva [cite: 50], Photoshop[cite: 51].</p>
-        </section>
+            <main>
+                <section class="card">
+                    <h2>Educational Background</h2>
+                    <p><strong>DKTE'S Textile & Engineering Institute, Ichalkaranji</strong><br>
+                    B. TECH Final Year Mechanical (2022-Pursuing)<br>CGPA: 6.65</p>
+                    <p><strong>Vidya Mandir Prashala and Junior College, Miraj</strong><br>
+                    HSC: 68.00% (2022)</p>
+                    <p><strong>Ideal English School, Miraj</strong><br>
+                    SSC: 71.40% (2020)</p>
+                </section>
 
-        <section class="card">
-            <h2>Certificates & Achievements [cite: 31]</h2>
-            <ul>
-                <li>Certified in Six Sigma White Belt[cite: 33].</li>
-                <li>Tata Technologies Ready Engineer in Advance Automobile Design, Analysis & Manufacturing[cite: 34].</li>
-                <li>CSWA-certified in SolidWorks by Dassault Systèmes[cite: 35].</li>
-                <li>NPTEL Certification - Advanced Machining Processes[cite: 36].</li>
-                <li>Third Prize in "Mech-Dart" [Tech-Symposium 2K24][cite: 37].</li>
-                <li>Participated in AAKRUTI Global 2024 & IET Karmaveer Expo 2024[cite: 38, 39].</li>
-            </ul>
-        </section>
+                <section class="card">
+                    <h2>Internship Experience</h2>
+                    <p><strong>Rotadyne Precision Engineering Private Limited.</strong><br>
+                    Intern in the Quality Control Department (11/2024)</p>
+                    <p><strong>Mahabal Metals Private Limited.</strong><br>
+                    Intern in the Machining Department (06/2024)</p>
+                </section>
 
-        <section class="card">
-            <h2>Extra-Curricular [cite: 45]</h2>
-            <ul>
-                <li>MESA committee Co-Ordinator[cite: 46].</li>
-                <li>Member of IME, SAE India, and E-cell DKTE[cite: 46, 52, 53].</li>
-            </ul>
-        </section>
+                <section class="card">
+                    <h2>Projects</h2>
+                    <ul>
+                        <li><strong>Thermochemical Energy Storage (TCES) System:</strong> Investigating salt hydrates and reactor design for compact energy storage.</li>
+                        <li><strong>Air-Based Rain Protection Helmet:</strong> Conceptual air-dome design. Design Patent Application No. 454613-001.</li>
+                        <li><strong>Magnetic Damper:</strong> Two opposing magnets for vibration damping.</li>
+                        <li><strong>Customizable LCV:</strong> Carriage modification for adaptability of light commercial vehicles.</li>
+                        <li><strong>Water Surface Waste Collector:</strong> Low-cost, passive seabin-inspired device for ponds and lakes.</li>
+                    </ul>
+                </section>
+            </main>
+
+        </div>
 
     </div>
+
+    <footer>
+        <p>&copy; 2024 Achyut Anant Deshpande. All Rights Reserved.</p>
+    </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -192,8 +310,8 @@
 
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => {
-                // Header is already visible, so skip it
-                if(card.tagName.toLowerCase() !== 'header') {
+                // Header is already handled by being 'visible' by default
+                if(!card.classList.contains('visible') && card.tagName.toLowerCase() !== 'header') {
                     observer.observe(card);
                 }
             });
