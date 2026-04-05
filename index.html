@@ -6,26 +6,27 @@
     <title>Achyut Anant Deshpande - Mechanical Engineer</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- FACC CORPORATE BRANDING --- */
+        /* --- BRANDING & VARIABLES --- */
         :root {
-            --facc-blue: #1A5E80;     /* FACC Signature Blue */
-            --carbon-black: #111111;  /* Elegant Black */
-            --bg-light: #f4f5f7;      /* Very Light Grey for contrast sections */
-            --text-main: #333333;     /* Dark Grey for readability */
+            --facc-blue: #1A5E80;     
+            --carbon-black: #111111;  
+            --bg-light: #f4f5f7;      
+            --text-main: #333333;     
             --white: #ffffff;
+            --transition-snappy: 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* Engineered, snappy feel */
         }
 
         body {
-            /* Simulated Aptos Body Font */
             font-family: 'Aptos', 'Open Sans', sans-serif;
             background-color: var(--white);
             color: var(--text-main);
             margin: 0;
             padding: 0;
             line-height: 1.7;
+            overflow-x: hidden; /* Prevent horizontal scroll from animations */
         }
 
-        /* --- TITLE FONT (BankGothic simulation) --- */
+        /* --- TITLE FONT --- */
         h1, h2, h3, h4, .logo {
             font-family: 'BankGothic Lt BT', 'Oswald', sans-serif;
             text-transform: uppercase;
@@ -33,18 +34,27 @@
             margin: 0;
         }
 
-        /* --- STICKY TOP NAVIGATION --- */
+        /* --- DYNAMIC STICKY NAVIGATION --- */
         .top-bar {
-            background-color: var(--white);
-            padding: 20px 50px;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #eaeaea;
-            position: sticky;
+            position: fixed;
+            width: 100%;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            z-index: 1000;
+            box-sizing: border-box;
+            transition: padding 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Class added via JS on scroll */
+        .top-bar.scrolled {
+            padding: 15px 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
         .top-bar .logo {
@@ -59,31 +69,34 @@
             color: var(--carbon-black);
         }
 
-        /* --- HERO SECTION (FACC "Beyond Horizons" Style) --- */
+        /* --- HERO SECTION --- */
         .hero {
             background-color: var(--carbon-black);
             color: var(--white);
-            padding: 100px 50px;
+            padding: 180px 50px 100px 50px; /* Extra top padding for fixed nav */
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 50px;
+            position: relative;
+            overflow: hidden;
         }
 
         .hero-content {
             flex: 1;
             max-width: 800px;
+            z-index: 2;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-bottom: 15px;
             line-height: 1.1;
             color: var(--white);
         }
 
         .hero h3 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: var(--facc-blue);
             font-family: 'Open Sans', sans-serif;
             text-transform: none;
@@ -95,16 +108,21 @@
             color: #cccccc;
             max-width: 600px;
             margin-bottom: 0;
+            font-size: 1.1rem;
         }
 
-        /* Profile Photo - Sharp, industrial look */
         .hero-profile-img {
-            width: 280px;
-            height: 280px;
+            width: 320px;
+            height: 320px;
             object-fit: cover;
-            border: 5px solid var(--facc-blue);
-            background-color: var(--white); /* Fallback */
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border: 4px solid var(--facc-blue);
+            z-index: 2;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+            transition: transform var(--transition-snappy);
+        }
+
+        .hero-profile-img:hover {
+            transform: scale(1.05) rotate(-2deg);
         }
 
         /* --- CONTACT BAR --- */
@@ -127,11 +145,12 @@
 
         .contact-bar a:hover {
             opacity: 0.7;
+            text-decoration: underline;
         }
 
-        /* --- MAIN CONTENT SECTIONS --- */
+        /* --- SECTIONS & GRIDS --- */
         .section {
-            padding: 80px 50px;
+            padding: 100px 50px;
         }
 
         .section-light {
@@ -139,43 +158,29 @@
         }
 
         .section-header {
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             border-left: 6px solid var(--facc-blue);
             padding-left: 20px;
         }
 
         .section-header h2 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: var(--carbon-black);
             letter-spacing: 1px;
         }
 
-        /* Grid Layouts */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-        }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
 
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        /* Content Blocks (Clean, flat cards like FACC components) */
+        /* --- CONTENT BLOCKS (Cards) --- */
         .content-block {
             background: var(--white);
-            padding: 35px;
+            padding: 40px;
             border-top: 4px solid transparent;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 5px 20px rgba(0,0,0,0.04);
             height: 100%;
             box-sizing: border-box;
-        }
-
-        .section-light .content-block {
-            background: var(--white);
+            transition: transform var(--transition-snappy), box-shadow var(--transition-snappy), border-color 0.3s ease;
         }
 
         .section:not(.section-light) .content-block {
@@ -184,104 +189,114 @@
         }
 
         .content-block:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
             border-top: 4px solid var(--facc-blue);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
         }
 
         .content-block h4 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--carbon-black);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .date-badge {
             display: inline-block;
             background-color: var(--carbon-black);
             color: var(--white);
-            padding: 4px 12px;
+            padding: 5px 15px;
             font-size: 0.8rem;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* Skills specific */
+        /* --- SKILLS LIST --- */
         .skill-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
             list-style: none;
             padding: 0;
-            margin: 15px 0 30px 0;
+            margin: 15px 0 35px 0;
         }
 
         .skill-list li {
             background-color: var(--white);
             color: var(--carbon-black);
-            padding: 8px 16px;
+            padding: 10px 20px;
             font-size: 0.9rem;
             font-weight: 600;
             border: 1px solid #d1d5da;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        ul.standard-list {
-            padding-left: 20px;
+        .skill-list li:hover {
+            background-color: var(--facc-blue);
+            color: var(--white);
+            border-color: var(--facc-blue);
         }
 
-        ul.standard-list li {
-            margin-bottom: 10px;
-        }
+        ul.standard-list { padding-left: 20px; }
+        ul.standard-list li { margin-bottom: 12px; }
 
         /* --- FOOTER --- */
         footer {
             background-color: var(--carbon-black);
             color: #888888;
             text-align: center;
-            padding: 40px 20px;
+            padding: 50px 20px;
             font-size: 0.9rem;
             border-top: 4px solid var(--facc-blue);
         }
 
-        /* --- RESPONSIVE DESIGN --- */
+        /* --- SCROLL ANIMATION CLASSES --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger delays for grid items */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+
+        /* --- RESPONSIVE --- */
         @media (max-width: 992px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding: 60px 20px;
-            }
-            .hero-content {
-                max-width: 100%;
-            }
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-            .section, .contact-bar, .top-bar {
-                padding: 40px 20px;
-            }
-            .contact-bar {
-                justify-content: center;
-            }
+            .hero { flex-direction: column; text-align: center; padding: 150px 20px 60px; }
+            .grid-2 { grid-template-columns: 1fr; gap: 30px;}
+            .section, .contact-bar { padding: 60px 20px; }
+            .contact-bar { justify-content: center; }
+            .top-bar { padding: 15px 20px; }
+            .hero-profile-img { width: 250px; height: 250px; }
         }
     </style>
 </head>
 <body>
 
-    <nav class="top-bar">
-        <div class="logo">DESHPANDE // ENGINEERING</div>
-        <div class="nav-links">PORTFOLIO & RESUME</div>
+    <nav class="top-bar" id="navbar">
+        <div class="logo">DESHPANDE // ENG</div>
+        <div class="nav-links">PORTFOLIO</div>
     </nav>
 
     <header class="hero">
-        <div class="hero-content">
-            <h1>Achyut Anant Deshpande</h1>
+        <div class="hero-content reveal active"> <h1>Achyut Anant Deshpande</h1>
             <h3>B. Tech Mechanical Engineering</h3>
             <p>Passionate about precision engineering, structural design, and innovative lightweight solutions. Constantly pushing boundaries and exploring new possibilities in the mechanical and automotive sectors.</p>
         </div>
-        <img src="profile.jpg" alt="Achyut Anant Deshpande" class="hero-profile-img">
+        <img src="profile.jpg" alt="Achyut Anant Deshpande" class="hero-profile-img reveal delay-2 active">
     </header>
 
-    <div class="contact-bar">
+    <div class="contact-bar reveal active delay-3">
         <span>📞 +91 7420878362</span>
         <span>✉️ atharvaadeshpande2004@gmail.com</span>
         <span>📍 Malkans Appt. flat no. 8 Watve Galli Brahmanpuri Miraj-416410</span>
@@ -289,15 +304,15 @@
     </div>
 
     <section class="section">
-        <div class="section-header">
+        <div class="section-header reveal">
             <h2>Professional Profile</h2>
         </div>
         
         <div class="grid-2">
-            <div>
-                <h3 style="margin-bottom: 20px; border-bottom: 2px solid var(--facc-blue); padding-bottom: 10px;">INTERNSHIP EXPERIENCE</h3>
+            <div class="reveal delay-1">
+                <h3 style="margin-bottom: 25px; border-bottom: 2px solid var(--facc-blue); padding-bottom: 10px;">INTERNSHIP EXPERIENCE</h3>
                 
-                <div class="content-block" style="margin-bottom: 20px;">
+                <div class="content-block" style="margin-bottom: 30px;">
                     <h4>Rotadyne Precision Engineering Pvt. Ltd.</h4>
                     <span class="date-badge">Nov 2024</span>
                     <p>Intern in the Quality Control Department. Focused on precision inspection and quality management systems.</p>
@@ -310,23 +325,23 @@
                 </div>
             </div>
 
-            <div>
-                <h3 style="margin-bottom: 20px; border-bottom: 2px solid var(--facc-blue); padding-bottom: 10px;">EDUCATIONAL BACKGROUND</h3>
+            <div class="reveal delay-2">
+                <h3 style="margin-bottom: 25px; border-bottom: 2px solid var(--facc-blue); padding-bottom: 10px;">EDUCATIONAL BACKGROUND</h3>
                 
-                <div class="content-block" style="margin-bottom: 20px;">
+                <div class="content-block" style="margin-bottom: 30px;">
                     <h4>DKTE'S Textile & Engineering Institute, Ichalkaranji</h4>
                     <span class="date-badge">2022 - Pursuing</span>
                     <p><strong>B. Tech Final Year Mechanical</strong><br>CGPA: 6.65</p>
                 </div>
 
-                <div class="grid-2" style="gap: 20px;">
+                <div class="grid-2" style="gap: 30px;">
                     <div class="content-block">
-                        <h4 style="font-size: 1.1rem;">Vidya Mandir Prashala & Jr. College, Miraj</h4>
+                        <h4 style="font-size: 1.1rem;">Vidya Mandir Prashala</h4>
                         <span class="date-badge">2022</span>
                         <p>HSC: 68.00%</p>
                     </div>
                     <div class="content-block">
-                        <h4 style="font-size: 1.1rem;">Ideal English School, Miraj</h4>
+                        <h4 style="font-size: 1.1rem;">Ideal English School</h4>
                         <span class="date-badge">2020</span>
                         <p>SSC: 71.40%</p>
                     </div>
@@ -336,32 +351,32 @@
     </section>
 
     <section class="section section-light">
-        <div class="section-header">
+        <div class="section-header reveal">
             <h2>Innovation & Projects</h2>
         </div>
 
         <div class="grid-3">
-            <div class="content-block">
+            <div class="content-block reveal delay-1">
                 <h4>Thermochemical Energy Storage (TCES) System</h4>
                 <p>A research project focused on thermochemical energy storage by investigating salt hydrates (SrBr2 and SrCI2). Designed and tested a reactor to effectively store large amounts of energy compactly with minimal loss.</p>
             </div>
 
-            <div class="content-block">
+            <div class="content-block reveal delay-2">
                 <h4>Air-Based Rain Protection Helmet</h4>
                 <p>Conceptual design featuring an umbrella made of air dome-shaped structures around a helmet. Applied for Design Patent (Application No. 454613-001).</p>
             </div>
 
-            <div class="content-block">
+            <div class="content-block reveal delay-3">
                 <h4>Magnetic Damper</h4>
                 <p>Engineered a piston-cylinder arrangement utilizing two opposing magnets to effectively dampen vibrations.</p>
             </div>
 
-            <div class="content-block">
+            <div class="content-block reveal delay-1">
                 <h4>Customizable LCV</h4>
                 <p>Developed modifications for the carriage of small light commercial vehicles (LCVs), enabling maximum adaptability for different industrial uses.</p>
             </div>
 
-            <div class="content-block">
+            <div class="content-block reveal delay-2">
                 <h4>Water Surface Waste Collector</h4>
                 <p>Developed a stationary floating device, inspired by the Seabin concept, to collect floating waste from small stagnant water bodies. Focused on low-cost materials and passive operation.</p>
             </div>
@@ -369,13 +384,13 @@
     </section>
 
     <section class="section">
-        <div class="section-header">
+        <div class="section-header reveal">
             <h2>Competencies</h2>
         </div>
 
         <div class="grid-2">
-            <div>
-                <h3 style="margin-bottom: 10px;">TECHNICAL SKILLS</h3>
+            <div class="reveal delay-1">
+                <h3 style="margin-bottom: 15px;">TECHNICAL SKILLS</h3>
                 
                 <p style="margin:0; font-weight: bold; color: var(--facc-blue);">Design & Modeling</p>
                 <ul class="skill-list">
@@ -400,8 +415,8 @@
                 </ul>
             </div>
 
-            <div class="content-block" style="background: var(--carbon-black); color: var(--white);">
-                <h3 style="color: var(--facc-blue); margin-bottom: 20px;">CERTIFICATES & ACHIEVEMENTS</h3>
+            <div class="content-block reveal delay-2" style="background: var(--carbon-black); color: var(--white);">
+                <h3 style="color: var(--facc-blue); margin-bottom: 25px;">CERTIFICATES & ACHIEVEMENTS</h3>
                 <ul class="standard-list">
                     <li><strong>Six Sigma White Belt:</strong> Solid understanding of continuous improvement tools and waste-reduction concepts.</li>
                     <li><strong>Tata Technologies Ready Engineer:</strong> Advance Automobile Design, Analysis & Manufacturing.</li>
@@ -411,7 +426,7 @@
                     <li><strong>Participations:</strong> AAKRUTI Global 2024 (SOLIDWORKS design contest) & IET Karmaveer Expo 2024.</li>
                 </ul>
                 
-                <hr style="border-color: #333; margin: 20px 0;">
+                <hr style="border-color: #333; margin: 25px 0;">
                 
                 <h3 style="color: var(--facc-blue); margin-bottom: 15px; font-size: 1.1rem;">EXTRA-CURRICULAR</h3>
                 <ul class="standard-list" style="font-size: 0.9rem;">
@@ -427,5 +442,44 @@
         <p>&copy; 2024 Achyut Anant Deshpande. Engineering & Design Portfolio.</p>
     </footer>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // 1. Sticky Nav Shrink on Scroll
+            const navbar = document.getElementById("navbar");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add("scrolled");
+                } else {
+                    navbar.classList.remove("scrolled");
+                }
+            });
+
+            // 2. Intersection Observer for Scroll Animations
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Add active class to trigger CSS animation
+                        entry.target.classList.add('active');
+                        // Optional: stop observing once revealed so it doesn't animate out/in again
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 // Element triggers when 15% visible
+            });
+
+            revealElements.forEach(el => {
+                // Skip items that are already active (like the hero section)
+                if (!el.classList.contains('active')) {
+                    revealObserver.observe(el);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
