@@ -9,14 +9,13 @@
         /* --- BRANDING & VARIABLES --- */
         :root {
             --facc-blue: #1A5E80;     
+            --facc-cyan: #22A7F0;     /* Added for glowing effects */
             --carbon-black: #111111;  
-            --bg-light: #f4f5f7;      
             --text-main: #333333;     
             --white: #ffffff;
             --transition-snappy: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* --- BACKGROUND IMAGE & LAYERS --- */
         body {
             font-family: 'Aptos', 'Open Sans', sans-serif;
             color: var(--text-main);
@@ -25,26 +24,28 @@
             line-height: 1.7;
             overflow-x: hidden;
             position: relative;
+            background-color: #050a0f; /* Darker base for HUD effect */
             
-            /* Add Your Background Image Here */
+            /* Background Image setup */
             background-image: url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Parallax effect */
+            background-attachment: fixed; 
         }
 
-        /* Frosted overlay to ensure black text is readable */
+        /* Dark, frosted overlay to make the HUD and text pop */
         .bg-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(244, 245, 247, 0.88); /* Adjust the 0.88 to make the background image lighter or darker */
+            background: linear-gradient(135deg, rgba(244,245,247,0.92) 0%, rgba(200,210,220,0.85) 100%);
             z-index: -2; 
+            pointer-events: none;
         }
 
-        /* Animated Canvas Layer */
+        /* --- THE ADVANCED CANVAS LAYER --- */
         #engineering-bg {
             position: fixed;
             top: 0;
@@ -52,7 +53,10 @@
             width: 100vw;
             height: 100vh;
             z-index: -1; 
-            pointer-events: none; /* Let clicks pass through to the background */
+            pointer-events: none;
+            /* Mix blend mode creates that glowing FACC hologram effect against the background */
+            mix-blend-mode: multiply; 
+            opacity: 0.8;
         }
 
         /* --- TITLE FONT --- */
@@ -67,13 +71,23 @@
         .hero {
             background-color: var(--carbon-black);
             color: var(--white);
-            padding: 100px 50px 100px 50px;
+            padding: 100px 50px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 50px;
             position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: radial-gradient(circle at 80% 50%, rgba(34,167,240,0.15) 0%, transparent 60%);
+            z-index: 1;
+            pointer-events: none;
         }
 
         .hero-content {
@@ -82,42 +96,21 @@
             z-index: 2;
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 15px;
-            line-height: 1.1;
-            color: var(--white);
-        }
-
-        .hero h3 {
-            font-size: 1.5rem;
-            color: var(--facc-blue);
-            font-family: 'Open Sans', sans-serif;
-            text-transform: none;
-            font-weight: 300;
-            margin-bottom: 30px;
-        }
-
-        .hero p {
-            color: #cccccc;
-            max-width: 600px;
-            margin-bottom: 0;
-            font-size: 1.1rem;
-        }
+        .hero h1 { font-size: 4rem; margin-bottom: 15px; line-height: 1.1; }
+        .hero h3 { font-size: 1.5rem; color: var(--facc-cyan); text-transform: none; font-weight: 300; margin-bottom: 30px; }
+        .hero p { color: #dddddd; max-width: 600px; margin-bottom: 0; font-size: 1.1rem; }
 
         .hero-profile-img {
             width: 320px;
             height: 320px;
             object-fit: cover;
-            border: 4px solid var(--facc-blue);
+            border: 4px solid var(--facc-cyan);
             z-index: 2;
             box-shadow: 0 25px 50px rgba(0,0,0,0.8);
             transition: transform var(--transition-snappy);
         }
 
-        .hero-profile-img:hover {
-            transform: scale(1.05) rotate(-2deg);
-        }
+        .hero-profile-img:hover { transform: scale(1.03) rotate(-1deg); }
 
         /* --- CONTACT BAR --- */
         .contact-bar {
@@ -131,104 +124,50 @@
             align-items: center;
         }
 
-        .contact-bar a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 600;
-            transition: opacity 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .contact-bar a:hover {
-            opacity: 0.7;
-            text-decoration: underline;
-        }
-
-        .resume-link {
-            background-color: var(--white);
-            color: var(--facc-blue) !important;
-            padding: 5px 15px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .resume-link:hover {
-            background-color: #e0e0e0;
-            text-decoration: none !important;
-        }
+        .contact-bar a { color: var(--white); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; }
+        .contact-bar a:hover { opacity: 0.7; text-decoration: underline; }
+        
+        .resume-link { background-color: var(--white); color: var(--facc-blue) !important; padding: 5px 15px; border-radius: 4px; }
+        .resume-link:hover { background-color: #e0e0e0; text-decoration: none !important; }
 
         /* --- SECTIONS & GRIDS --- */
-        .section {
-            padding: 100px 50px;
-            position: relative;
-            z-index: 2; 
-        }
-
-        /* Adding a slight backdrop blur to make cards stand out from the background image */
-        .section-light {
-            background-color: rgba(255, 255, 255, 0.6); 
-            backdrop-filter: blur(10px);
-        }
-
-        .section-header {
-            margin-bottom: 60px;
-            border-left: 6px solid var(--facc-blue);
-            padding-left: 20px;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            color: var(--carbon-black);
-            letter-spacing: 1px;
-        }
+        .section { padding: 100px 50px; position: relative; z-index: 2; }
+        .section-light { background-color: transparent; }
+        .section-header { margin-bottom: 60px; border-left: 6px solid var(--facc-blue); padding-left: 20px; }
+        .section-header h2 { font-size: 2.5rem; color: var(--carbon-black); letter-spacing: 1px; }
 
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
 
-        /* --- CONTENT BLOCKS (Cards) --- */
+        /* --- CONTENT BLOCKS --- */
         .content-block {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
             padding: 40px;
             border-top: 4px solid transparent;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
             height: 100%;
             box-sizing: border-box;
             transition: transform var(--transition-snappy), box-shadow var(--transition-snappy), border-color 0.3s ease;
         }
 
         .content-block:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             border-top: 4px solid var(--facc-blue);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
-        /* THE UNIFIED BOX STYLING */
         .unified-box {
             background: rgba(255, 255, 255, 0.95);
-            border: 1px solid #eaeaea;
+            border: 1px solid rgba(0,0,0,0.05);
             border-top: 4px solid var(--facc-blue);
             padding: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
         
-        .unified-box h3 {
-            color: var(--facc-blue);
-            margin-bottom: 25px;
-            border-bottom: 2px solid #eaeaea;
-            padding-bottom: 10px;
-        }
-
-        .entry {
-            margin-bottom: 30px;
-        }
-
-        .entry h4 {
-            font-size: 1.2rem;
-            color: var(--carbon-black);
-            margin-bottom: 5px;
-        }
+        .unified-box h3 { color: var(--facc-blue); margin-bottom: 25px; border-bottom: 2px solid #eaeaea; padding-bottom: 10px; }
+        .entry { margin-bottom: 30px; }
+        .entry h4 { font-size: 1.2rem; color: var(--carbon-black); margin-bottom: 5px; }
 
         .date-badge {
             display: inline-block;
@@ -243,15 +182,7 @@
         }
 
         /* --- SKILLS LIST --- */
-        .skill-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            list-style: none;
-            padding: 0;
-            margin: 15px 0 35px 0;
-        }
-
+        .skill-list { display: flex; flex-wrap: wrap; gap: 12px; list-style: none; padding: 0; margin: 15px 0 35px 0; }
         .skill-list li {
             background-color: var(--white);
             color: var(--carbon-black);
@@ -259,14 +190,9 @@
             font-size: 0.9rem;
             font-weight: 600;
             border: 1px solid #d1d5da;
-            transition: background-color 0.3s, color 0.3s;
+            transition: all 0.3s ease;
         }
-
-        .skill-list li:hover {
-            background-color: var(--facc-blue);
-            color: var(--white);
-            border-color: var(--facc-blue);
-        }
+        .skill-list li:hover { background-color: var(--facc-blue); color: var(--white); border-color: var(--facc-blue); transform: translateY(-2px); }
 
         ul.standard-list { padding-left: 20px; }
         ul.standard-list li { margin-bottom: 12px; }
@@ -278,26 +204,15 @@
             text-align: center;
             padding: 50px 20px;
             font-size: 0.9rem;
-            border-top: 4px solid var(--facc-blue);
+            border-top: 4px solid var(--facc-cyan);
             position: relative;
             z-index: 2;
         }
 
-        /* --- SCROLL ANIMATION CLASSES --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .delay-1 { transition-delay: 0.1s; }
-        .delay-2 { transition-delay: 0.2s; }
-        .delay-3 { transition-delay: 0.3s; }
+        /* --- SCROLL ANIMATIONS --- */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 992px) {
@@ -313,14 +228,13 @@
 <body>
 
     <div class="bg-overlay"></div>
-
     <canvas id="engineering-bg"></canvas>
 
     <header class="hero">
         <div class="hero-content reveal active">
             <h1>Achyut Anant Deshpande</h1>
-            <h3>B. Tech Mechanical Engineering</h3>
-            <p>Passionate about precision engineering, structural design, and innovative lightweight solutions. Constantly pushing boundaries and exploring new possibilities in the mechanical and automotive sectors.</p>
+            <h3>B. Tech Mechanical Engineering <span>✈️</span></h3>
+            <p>Passionate about precision engineering, structural design, and innovative lightweight solutions. Constantly pushing boundaries and exploring new possibilities in the mechanical and aerospace sectors.</p>
         </div>
         <img src="profile.jpg" alt="Achyut Anant Deshpande" class="hero-profile-img reveal delay-2 active">
     </header>
@@ -330,7 +244,6 @@
         <span>✉️ atharvaadeshpande2004@gmail.com</span>
         <span>📍 Malkans Appt. flat no. 8 Watve Galli Brahmanpuri Miraj-416410</span>
         <a href="https://www.linkedin.com/in/achyut-deshpande-b34369334" target="_blank">🔗 LINKEDIN PROFILE</a>
-        
         <a href="resume.pdf" target="_blank" class="resume-link">📄 VIEW RESUME (PDF)</a>
     </div>
 
@@ -341,32 +254,26 @@
         
         <div class="unified-box reveal delay-1">
             <div class="grid-2">
-                
                 <div>
                     <h3>INTERNSHIP EXPERIENCE</h3>
-                    
                     <div class="entry">
                         <h4>Rotadyne Precision Engineering Pvt. Ltd.</h4>
                         <span class="date-badge">Nov 2024</span>
                         <p>Intern in the Quality Control Department. Focused on precision inspection and quality management systems.</p>
                     </div>
-
                     <div class="entry">
                         <h4>Mahabal Metals Private Limited</h4>
                         <span class="date-badge">Jun 2024</span>
                         <p>Intern in the Machining Department. Gained hands-on experience in manufacturing processes and industrial operations.</p>
                     </div>
                 </div>
-
                 <div>
                     <h3>EDUCATIONAL BACKGROUND</h3>
-                    
                     <div class="entry">
                         <h4>DKTE'S Textile & Engineering Institute, Ichalkaranji</h4>
                         <span class="date-badge">2022 - Pursuing</span>
                         <p><strong>B. Tech Final Year Mechanical</strong><br>CGPA: 6.65</p>
                     </div>
-
                     <div class="grid-2" style="gap: 20px;">
                         <div class="entry">
                             <h4 style="font-size: 1.1rem;">Vidya Mandir Prashala</h4>
@@ -380,7 +287,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -395,22 +301,18 @@
                 <h4>Thermochemical Energy Storage (TCES) System</h4>
                 <p>A research project focused on thermochemical energy storage by investigating salt hydrates (SrBr2 and SrCI2). Designed and tested a reactor to effectively store large amounts of energy compactly with minimal loss.</p>
             </div>
-
             <div class="content-block reveal delay-2">
                 <h4>Air-Based Rain Protection Helmet</h4>
                 <p>Conceptual design featuring an umbrella made of air dome-shaped structures around a helmet. Applied for Design Patent (Application No. 454613-001).</p>
             </div>
-
             <div class="content-block reveal delay-3">
                 <h4>Magnetic Damper</h4>
                 <p>Engineered a piston-cylinder arrangement utilizing two opposing magnets to effectively dampen vibrations.</p>
             </div>
-
             <div class="content-block reveal delay-1">
                 <h4>Customizable LCV</h4>
                 <p>Developed modifications for the carriage of small light commercial vehicles (LCVs), enabling maximum adaptability for different industrial uses.</p>
             </div>
-
             <div class="content-block reveal delay-2">
                 <h4>Water Surface Waste Collector</h4>
                 <p>Developed a stationary floating device, inspired by the Seabin concept, to collect floating waste from small stagnant water bodies. Focused on low-cost materials and passive operation.</p>
@@ -426,32 +328,22 @@
         <div class="grid-2">
             <div class="reveal delay-1">
                 <h3 style="margin-bottom: 15px;">TECHNICAL SKILLS</h3>
-                
                 <p style="margin:0; font-weight: bold; color: var(--facc-blue);">Design & Modeling</p>
                 <ul class="skill-list">
-                    <li>AutoCAD 2D & 3D</li>
-                    <li>Fusion 360</li>
-                    <li>SolidWorks</li>
-                    <li>Catia</li>
+                    <li>AutoCAD 2D & 3D</li><li>Fusion 360</li><li>SolidWorks</li><li>Catia</li>
                 </ul>
-
                 <p style="margin:0; font-weight: bold; color: var(--facc-blue);">Analysis & Programming</p>
                 <ul class="skill-list">
-                    <li>Ansys-Workbench</li>
-                    <li>C Programming</li>
-                    <li>Python</li>
+                    <li>Ansys-Workbench</li><li>C Programming</li><li>Python</li>
                 </ul>
-
                 <p style="margin:0; font-weight: bold; color: var(--facc-blue);">Software Tools</p>
                 <ul class="skill-list">
-                    <li>MS Office</li>
-                    <li>Canva</li>
-                    <li>Photoshop</li>
+                    <li>MS Office</li><li>Canva</li><li>Photoshop</li>
                 </ul>
             </div>
 
             <div class="content-block reveal delay-2" style="background: var(--carbon-black); color: var(--white);">
-                <h3 style="color: var(--facc-blue); margin-bottom: 25px;">CERTIFICATES & ACHIEVEMENTS</h3>
+                <h3 style="color: var(--facc-cyan); margin-bottom: 25px;">CERTIFICATES & ACHIEVEMENTS</h3>
                 <ul class="standard-list">
                     <li><strong>Six Sigma White Belt:</strong> Solid understanding of continuous improvement tools and waste-reduction concepts.</li>
                     <li><strong>Tata Technologies Ready Engineer:</strong> Advance Automobile Design, Analysis & Manufacturing.</li>
@@ -460,14 +352,10 @@
                     <li><strong>Third Prize:</strong> "Mech-Dart" [Tech-Symposium 2K24] organized by DKTE Society's Engineering Institute.</li>
                     <li><strong>Participations:</strong> AAKRUTI Global 2024 (SOLIDWORKS design contest) & IET Karmaveer Expo 2024.</li>
                 </ul>
-                
                 <hr style="border-color: #333; margin: 25px 0;">
-                
-                <h3 style="color: var(--facc-blue); margin-bottom: 15px; font-size: 1.1rem;">EXTRA-CURRICULAR</h3>
+                <h3 style="color: var(--facc-cyan); margin-bottom: 15px; font-size: 1.1rem;">EXTRA-CURRICULAR</h3>
                 <ul class="standard-list" style="font-size: 0.9rem;">
-                    <li>MESA Committee Co-Ordinator</li>
-                    <li>Member of IME & SAE India</li>
-                    <li>Member of E-cell DKTE</li>
+                    <li>MESA Committee Co-Ordinator</li><li>Member of IME & SAE India</li><li>Member of E-cell DKTE</li>
                 </ul>
             </div>
         </div>
@@ -480,7 +368,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             
-            // Intersection Observer for Scroll Animations
+            // --- SCROLL REVEAL ---
             const revealElements = document.querySelectorAll('.reveal');
             const revealObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
@@ -489,84 +377,188 @@
                         observer.unobserve(entry.target); 
                     }
                 });
-            }, { root: null, rootMargin: '0px', threshold: 0.15 });
+            }, { root: null, rootMargin: '0px', threshold: 0.1 });
 
             revealElements.forEach(el => {
                 if (!el.classList.contains('active')) revealObserver.observe(el);
             });
 
-            // NEW: DRAFTING MARKER ANIMATION
+            // --- ADVANCED AEROSPACE ENGINE SPOOL-UP ANIMATION ---
             const canvas = document.getElementById('engineering-bg');
             const ctx = canvas.getContext('2d');
-            let width, height, markers;
+            let width, height;
+            
+            // Engine Dynamics
+            let engineSpeed = 0;           // Current rotation speed
+            const targetSpeed = 0.025;     // Max idle speed
+            let engineStarted = false;     // Trigger for spool up
+            let angleOffset = 0;           // Global rotation tracking
+            
+            // Particles Array
+            let particles = [];
+
+            // Colors
+            const colorPrimary = 'rgba(26, 94, 128, 0.5)'; // FACC Blue
+            const colorSecondary = 'rgba(34, 167, 240, 0.4)'; // Cyan
 
             function initBackground() {
                 width = canvas.width = window.innerWidth;
                 height = canvas.height = window.innerHeight;
-                markers = [];
-                // Number of markers based on screen size
-                const markerCount = Math.floor((width * height) / 30000);
+                // Start engine 1 second after load
+                setTimeout(() => { engineStarted = true; }, 1000);
+            }
 
-                for (let i = 0; i < markerCount; i++) {
-                    markers.push({
-                        x: Math.random() * width,
-                        y: Math.random() * height,
-                        size: Math.random() * 15 + 10,
+            // Function to draw complex curved turbine blades
+            function drawBlades(radius, count, curveIntensity, isRotor) {
+                const angleStep = (Math.PI * 2) / count;
+                for (let i = 0; i < count; i++) {
+                    ctx.save();
+                    ctx.rotate(i * angleStep);
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(radius * 0.15, 0); // Start at hub
+                    
+                    // Complex Bezier Curve for an aerodynamic blade profile
+                    ctx.bezierCurveTo(
+                        radius * 0.4, radius * curveIntensity, 
+                        radius * 0.7, radius * (curveIntensity * 1.5), 
+                        radius, 0
+                    );
+                    
+                    ctx.lineTo(radius, radius * 0.02); // Tip thickness
+                    
+                    ctx.bezierCurveTo(
+                        radius * 0.7, radius * (curveIntensity * 1.2), 
+                        radius * 0.4, radius * (curveIntensity * 0.8), 
+                        radius * 0.15, radius * 0.05
+                    );
+
+                    // Rotors get solid fills, stators get outlines
+                    if (isRotor) {
+                        ctx.fillStyle = `rgba(26, 94, 128, ${0.05 + Math.abs(engineSpeed)})`;
+                        ctx.fill();
+                        ctx.strokeStyle = colorPrimary;
+                        ctx.stroke();
+                    } else {
+                        ctx.strokeStyle = colorSecondary;
+                        ctx.stroke();
+                    }
+                    
+                    ctx.restore();
+                }
+            }
+
+            // Function to manage airflow/ignition particles
+            function handleParticles(cx, cy, maxRadius) {
+                // Spawn particles based on engine speed
+                if (engineSpeed > 0.005 && Math.random() < engineSpeed * 40) {
+                    particles.push({
+                        x: 0, 
+                        y: 0,
                         angle: Math.random() * Math.PI * 2,
-                        vAngle: (Math.random() - 0.5) * 0.02, // slow rotation
-                        vx: (Math.random() - 0.5) * 0.3, // very slow drift
-                        vy: (Math.random() - 0.5) * 0.3,
-                        opacity: Math.random() * 0.5 + 0.1
+                        speed: Math.random() * (engineSpeed * 200) + 2,
+                        life: 1.0,
+                        radius: Math.random() * 3 + 1
                     });
                 }
+
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    let p = particles[i];
+                    
+                    // Move particle outward along its angle, modified by engine spin
+                    p.x += Math.cos(p.angle) * p.speed;
+                    p.y += Math.sin(p.angle) * p.speed;
+                    p.angle += engineSpeed * 0.5; // Swirl effect
+                    p.life -= 0.01;
+
+                    // Distance from center
+                    let dist = Math.sqrt(p.x * p.x + p.y * p.y);
+
+                    if (p.life <= 0 || dist > maxRadius) {
+                        particles.splice(i, 1);
+                    } else {
+                        ctx.save();
+                        ctx.translate(cx + p.x, cy + p.y);
+                        
+                        // Color shifts from Ignition Orange -> Cyan as engine speeds up
+                        let r = 255 - (engineSpeed * 10000); // Fades red out
+                        let g = 150 + (engineSpeed * 4000);  // Increases green/blue
+                        let b = 50 + (engineSpeed * 8000);   // Increases blue
+                        
+                        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${p.life})`;
+                        ctx.beginPath();
+                        ctx.arc(0, 0, p.radius, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.restore();
+                    }
+                }
+            }
+
+            function drawEngineNode(cx, cy, radius) {
+                ctx.save();
+                ctx.translate(cx, cy);
+
+                // Draw outer casing rings
+                ctx.strokeStyle = colorSecondary;
+                ctx.lineWidth = 2;
+                ctx.beginPath(); ctx.arc(0, 0, radius, 0, Math.PI * 2); ctx.stroke();
+                ctx.beginPath(); ctx.arc(0, 0, radius * 0.98, 0, Math.PI * 2); ctx.stroke();
+                
+                // Draw Stator (Stationary Guide Vanes) deeper in the engine
+                ctx.save();
+                ctx.rotate(-angleOffset * 0.1); // Slowly drifts
+                drawBlades(radius * 0.9, 36, -0.2, false);
+                ctx.restore();
+
+                // Draw Primary Rotor (Main Fan)
+                ctx.save();
+                ctx.rotate(angleOffset);
+                drawBlades(radius * 0.95, 24, 0.4, true);
+                
+                // Draw Spinner (Nose cone)
+                ctx.beginPath();
+                ctx.arc(0, 0, radius * 0.18, 0, Math.PI * 2);
+                ctx.fillStyle = '#050a0f';
+                ctx.fill();
+                ctx.stroke();
+                
+                // Spinner Spiral detail
+                ctx.beginPath();
+                ctx.moveTo(0,0);
+                for(let i=0; i<radius*0.18; i+=2) {
+                    ctx.lineTo(Math.cos(i*0.2)*i, Math.sin(i*0.2)*i);
+                }
+                ctx.strokeStyle = colorPrimary;
+                ctx.stroke();
+                ctx.restore();
+
+                ctx.restore();
+
+                // Draw dynamic particles over the engine
+                handleParticles(cx, cy, radius);
             }
 
             function animateBackground() {
                 requestAnimationFrame(animateBackground);
                 ctx.clearRect(0, 0, width, height);
 
-                // Update and draw technical markers
-                for (let i = 0; i < markers.length; i++) {
-                    let m = markers[i];
-                    m.x += m.vx;
-                    m.y += m.vy;
-                    m.angle += m.vAngle;
-
-                    // Wrap around screen
-                    if (m.x < -50) m.x = width + 50;
-                    if (m.x > width + 50) m.x = -50;
-                    if (m.y < -50) m.y = height + 50;
-                    if (m.y > height + 50) m.y = -50;
-
-                    ctx.save();
-                    ctx.translate(m.x, m.y);
-                    ctx.rotate(m.angle);
-                    
-                    // Draw Drafting Crosshair
-                    ctx.beginPath();
-                    ctx.moveTo(-m.size, 0);
-                    ctx.lineTo(m.size, 0);
-                    ctx.moveTo(0, -m.size);
-                    ctx.lineTo(0, m.size);
-                    ctx.strokeStyle = `rgba(26, 94, 128, ${m.opacity})`; // FACC Blue
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-
-                    // Draw outer ring on some markers
-                    if(i % 3 === 0) {
-                        ctx.beginPath();
-                        ctx.arc(0, 0, m.size * 0.6, 0, Math.PI * 2);
-                        ctx.stroke();
-                    }
-
-                    ctx.restore();
+                // Spool up math (Smooth acceleration)
+                if (engineStarted && engineSpeed < targetSpeed) {
+                    engineSpeed += 0.00005; // Acceleration curve
                 }
+                angleOffset += engineSpeed;
+
+                // Main Engine Position (Offset to the right, serving as a massive background element)
+                let mainRadius = Math.min(width, height) * 0.7;
+                drawEngineNode(width * 0.8, height * 0.5, mainRadius);
+                
+                // Secondary smaller auxiliary turbine (Top Left)
+                drawEngineNode(width * 0.15, height * 0.2, mainRadius * 0.25);
             }
 
             initBackground();
             animateBackground();
 
-            // Handle window resize
             window.addEventListener('resize', initBackground);
         });
     </script>
