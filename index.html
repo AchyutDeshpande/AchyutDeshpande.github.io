@@ -9,7 +9,581 @@
         /* --- BRANDING & VARIABLES --- */
         :root {
             --facc-blue: #1A5E80;     
-            --facc-light: #3498db;
+            --facc-light: #3498db;<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achyut Anant Deshpande | Mechanical Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- PREMIUM DARK THEME VARIABLES --- */
+        :root {
+            --primary: #00f0ff;       /* Vibrant Cyan */
+            --secondary: #7000ff;     /* Deep Tech Purple */
+            --accent: #ff007f;        /* Neon Pink Accent */
+            --bg-dark: #07090f;       /* Very dark navy/black */
+            --card-bg: rgba(20, 22, 30, 0.6); 
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* --- GLOBAL RESETS & BASE --- */
+        * { box-sizing: border-box; }
+        
+        body, html {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            overflow-x: hidden; /* Prevents mobile side-scrolling */
+            width: 100%;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+
+        /* --- BACKGROUND ANIMATIONS (Orbs & Particles) --- */
+        #bg-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -2; 
+        }
+
+        .ambient-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
+            z-index: -1;
+            pointer-events: none;
+            transition: transform 0.3s ease-out;
+        }
+        .orb-1 {
+            width: 400px; height: 400px;
+            background: var(--primary);
+            top: -100px; left: -100px;
+            animation: float 15s infinite alternate ease-in-out;
+        }
+        .orb-2 {
+            width: 500px; height: 500px;
+            background: var(--secondary);
+            bottom: -150px; right: -100px;
+            animation: float 20s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 80px) scale(1.2); }
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            position: relative;
+            z-index: 2;
+            gap: 40px;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem); /* Auto-scales for mobile */
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #ffffff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h3 {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: clamp(1rem, 1.5vw, 1.15rem);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        /* Glowing Profile Image */
+        .profile-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .profile-container::before {
+            content: '';
+            position: absolute;
+            width: 105%; height: 105%;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+            animation: spin 5s linear infinite;
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0.7;
+        }
+
+        .hero-profile-img {
+            width: clamp(220px, 30vw, 350px);
+            height: clamp(220px, 30vw, 350px);
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid rgba(255,255,255,0.1);
+            animation: profileFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes profileFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* --- CONTACT BAR --- */
+        .contact-bar {
+            background: rgba(10, 12, 20, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 20px 8%;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-bar a, .contact-bar span {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .contact-bar a:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .btn-resume {
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            color: #fff !important;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-weight: 700 !important;
+            box-shadow: 0 10px 20px rgba(0, 240, 255, 0.2);
+        }
+        .btn-resume:hover {
+            box-shadow: 0 15px 30px rgba(0, 240, 255, 0.4);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* --- SECTIONS & GRIDS --- */
+        .section {
+            padding: 100px 8%;
+            position: relative;
+            z-index: 2; 
+        }
+
+        .section-header {
+            margin-bottom: 50px;
+        }
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px; left: 0;
+            width: 60%; height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+
+        /* --- GLASSMORPHISM OS CARDS --- */
+        .os-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .os-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .os-card:hover::before { opacity: 1; }
+        .os-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0, 240, 255, 0.1);
+        }
+
+        .os-card > * { position: relative; z-index: 2; }
+
+        .os-card h3 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 15px;
+        }
+
+        .entry { margin-bottom: 30px; }
+        .entry h4 { font-size: 1.2rem; color: #fff; margin-bottom: 8px; }
+
+        .date-badge {
+            display: inline-block;
+            background: rgba(112, 0, 255, 0.2);
+            color: var(--primary);
+            border: 1px solid var(--secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        ul.standard-list { padding-left: 20px; color: var(--text-muted); }
+        ul.standard-list li { margin-bottom: 12px; }
+        ul.standard-list strong { color: #fff; }
+
+        /* --- SKILLS PILLS --- */
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+            padding: 0;
+            margin: 15px 0 35px 0;
+        }
+
+        .skill-list li {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .skill-list li:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 240, 255, 0.3);
+        }
+
+        /* --- SCROLL ANIMATIONS --- */
+        .reveal-up { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+        .reveal-up.active { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* --- MOBILE OPTIMIZATION --- */
+        @media (max-width: 992px) {
+            .hero { 
+                flex-direction: column-reverse; /* Puts image above text on mobile */
+                text-align: center; 
+                padding: 120px 5% 60px; 
+                justify-content: center;
+            }
+            .section-header h2::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .section-header { text-align: center; }
+            .contact-bar { padding: 20px 5%; gap: 15px; justify-content: center; }
+            .contact-bar a, .contact-bar span { font-size: 0.85rem; }
+            .section { padding: 60px 5%; }
+            .os-card { padding: 30px 20px; }
+            /* Disable mouse tracking effect on touch devices for better performance */
+            .os-card::before { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Animated Background -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+
+    <header class="hero">
+        <div class="hero-content reveal-up active">
+            <h1>Achyut Anant Deshpande</h1>
+            <h3>Mechanical Engineer</h3>
+            <p>Mechanical Engineer with hands-on experience in mechanical design, CAD modelling, engineering drawings, and bulk material handling equipment. Specializing in 2D/3D modelling, detailed manufacturing drawings, and precision conveyor design.</p>
+        </div>
+        <div class="profile-container reveal-up active delay-1">
+            <img src="Image.jpeg" alt="Achyut Anant Deshpande" class="hero-profile-img">
+        </div>
+    </header>
+
+    <div class="contact-bar reveal-up active delay-2">
+        <span>📞 +91 7420878362</span>
+        <a href="mailto:deshpandeachyut27@gmail.com">📧 deshpandeachyut27@gmail.com</a>
+        <span>📍 Pune, Maharashtra</span>
+        <a href="https://www.linkedin.com/in/achyut-deshpande-b34369334" target="_blank">🔗 LinkedIn</a>
+        <a href="https://achyutdeshpande.github.io" target="_blank">🌐 Portfolio</a>
+        <a href="Achyut_Deshpande_LINKEDIN.pdf" target="_blank" class="btn-resume">📄 Resume</a>
+    </div>
+
+    <section class="section">
+        <div class="section-header reveal-up">
+            <h2>Professional Profile</h2>
+        </div>
+        
+        <div class="os-card reveal-up delay-1">
+            <div class="grid-2">
+                <div>
+                    <h3>INTERNSHIP EXPERIENCE</h3>
+                     <div class="entry">
+                        <h4>Mechanical Design Intern | Screwtech Engineering</h4>
+                        <span class="date-badge">Jun 2026 - Present</span>
+                        <ul class="standard-list">
+                            <li>Create 2D and 3D CAD models for bulk material-handling equipment including Screw Feeders, Screw Conveyors, and Twin Ribbon Conveyors.</li>
+                            <li>Prepare manufacturing, fabrication and detailed drawings with dimensions and design information.</li>
+                            <li>Perform engineering calculations and determine design values for conveyor systems.</li>
+                            <li>Develop General Arrangement (GA) drawings for complete assemblies.</li>
+                        </ul>
+                    </div>
+                    <div class="entry">
+                        <h4>Quality Control Intern | Rotadyne Precision Engineering</h4>
+                        <span class="date-badge">Dec 2024 - Dec 2024</span>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Gained practical exposure to quality inspection, dimensional measurement, and quality control processes in a precision engineering environment.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>EDUCATIONAL BACKGROUND</h3>
+                    <div class="entry">
+                        <h4>DKTE Society's Textile & Engineering Institute</h4>
+                        <span class="date-badge">2022 - 2026</span>
+                        <p style="color: #fff;"><strong>B.Tech. Mechanical Engineering</strong></p>
+                    </div>
+                    <div class="grid-2" style="gap: 20px;">
+                        <div class="entry">
+                            <h4>Vidya Mandir Prashala</h4>
+                            <span class="date-badge" style="background: rgba(255,0,127,0.2); border-color: var(--accent); color: #fff;">2022</span>
+                            <p style="color: var(--text-muted);">HSC: 68.00%</p>
+                        </div>
+                        <div class="entry">
+                            <h4>Ideal English School</h4>
+                            <span class="date-badge" style="background: rgba(255,0,127,0.2); border-color: var(--accent); color: #fff;">2020</span>
+                            <p style="color: var(--text-muted);">SSC: 71.40%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header reveal-up">
+            <h2>Innovation & Projects</h2>
+        </div>
+
+        <div class="grid-3">
+            <div class="os-card reveal-up delay-1">
+                <h4>Thermochemical Energy Storage (TCES)</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 15px;">Investigated thermochemical energy storage using salt hydrates, focusing on energy storage behaviour. Designed and tested a reactor concept to study charging/discharging response and thermal efficiency.</p>
+                <p style="margin-top: 15px; color: var(--primary); font-size: 0.9rem;"><strong>🏆 Awarded Best Project (2025-26)</strong><br>DKTE Society's Engineering Institute.</p>
+            </div>
+            <div class="os-card reveal-up delay-2">
+                <h4>Air-Based Rain Protection Helmet</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 15px;">Developed a conceptual helmet with an air-inflated dome for rain protection, focusing on structural feasibility, airflow stability and ergonomics.</p>
+                <p style="margin-top: 15px; color: #fff; font-size: 0.85rem; padding: 5px 10px; background: rgba(255,255,255,0.1); display: inline-block; border-radius: 5px;">Design patent filed: 454613-001</p>
+            </div>
+            <div class="os-card reveal-up delay-3">
+                <h4>Water Surface Waste Collector</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 15px;">Designed a stationary floating waste-collection concept for ponds and small water bodies, emphasizing low-cost materials, passive operation and floating-debris removal.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header reveal-up">
+            <h2>Competencies</h2>
+        </div>
+
+        <div class="grid-2">
+            <div class="os-card reveal-up delay-1">
+                <h3>TECHNICAL SKILLS</h3>
+                <p style="margin:0; font-weight: 700; color: #fff;">CAD, Drafting & Design</p>
+                <ul class="skill-list">
+                    <li>SolidWorks</li>
+                    <li>AutoCAD 2D/3D</li>
+                    <li>Fusion 360</li>
+                    <li>Autodesk Inventor</li>
+                    <li>GA Drawings</li>
+                    <li>Manufacturing Drawings</li>
+                    <li>Conveyor Design</li>
+                </ul>
+                <p style="margin:0; font-weight: 700; color: #fff; margin-top: 20px;">Programming & Tools</p>
+                <ul class="skill-list">
+                    <li>Python (Basic)</li>
+                    <li>C (Basic)</li>
+                    <li>Microsoft Office</li>
+                </ul>
+            </div>
+
+            <div class="os-card reveal-up delay-2">
+                <h3>CERTIFICATES & ACHIEVEMENTS</h3>
+                <ul class="standard-list">
+                    <li><strong>🏆 Best Project Award (2025–26):</strong> TCES Reactor Project.</li>
+                    <li><strong>Six Sigma White Belt:</strong> Continuous improvement tools.</li>
+                    <li><strong>Tata Technologies Ready Engineer:</strong> Advance Automobile Design.</li>
+                    <li><strong>CSWA-Certified in SolidWorks:</strong> Dassault Systèmes.</li>
+                    <li><strong>NPTEL Certification:</strong> Advanced Machining Processes.</li>
+                    <li><strong>Third Prize:</strong> "Mech-Dart" [Tech-Symposium 2K24].</li>
+                    <li><strong>Participations:</strong> AAKRUTI Global & IET Karmaveer Expo 2024.</li>
+                </ul>
+                <h3 style="margin-top: 35px; font-size: 1.1rem;">EXTRA-CURRICULAR</h3>
+                <ul class="standard-list" style="font-size: 0.95rem;">
+                    <li>MESA Committee Co-Ordinator</li>
+                    <li>Member of IME & SAE India</li>
+                    <li>Member of E-cell DKTE</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px;">
+        <p>&copy; 2026 Achyut Anant Deshpande. Engineered for the Future.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // --- 1. Scroll Reveal Animations ---
+            const revealElements = document.querySelectorAll('.reveal-up');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+            revealElements.forEach(el => observer.observe(el));
+
+            // --- 2. Interactive Spotlight on Cards (Desktop Only) ---
+            if (window.innerWidth > 992) {
+                const cards = document.querySelectorAll(".os-card");
+                document.addEventListener("mousemove", (e) => {
+                    for (const card of cards) {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        card.style.setProperty("--mouse-x", `${x}px`);
+                        card.style.setProperty("--mouse-y", `${y}px`);
+                    }
+                });
+            }
+
+            // --- 3. Subtle Tech Particle Background ---
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height, particles;
+
+            function initCanvas() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                particles = [];
+                const particleCount = Math.floor((width * height) / 15000); // Responsive particle amount
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 0.3,
+                        vy: (Math.random() - 0.5) * 0.3,
+                        size: Math.random() * 1.5 + 0.5
+                    });
+                }
+            }
+
+            function animateCanvas() {
+                requestAnimationFrame(animateCanvas);
+                ctx.clearRect(0, 0, width, height);
+                ctx.fillStyle = 'rgba(0, 240, 255, 0.4)'; // Cyan particles
+                
+                particles.forEach(p => {
+                    p.x += p.vx; 
+                    p.y += p.vy;
+                    // Wrap around edges cleanly
+                    if (p.x < 0) p.x = width;
+                    if (p.x > width) p.x = 0;
+                    if (p.y < 0) p.y = height;
+                    if (p.y > height) p.y = 0;
+                    
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+            }
+
+            initCanvas();
+            animateCanvas();
+            window.addEventListener('resize', initCanvas);
+        });
+    </script>
+</body>
+</html>
             --carbon-black: #111111;  
             --bg-light: #f8f9fa;      
             --text-main: #222222;     
