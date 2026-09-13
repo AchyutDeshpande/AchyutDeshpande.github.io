@@ -131,7 +131,7 @@
             width: clamp(250px, 25vw, 380px);
             height: clamp(250px, 25vw, 380px);
             object-fit: cover;
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; /* Organic liquid shape */
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
             box-shadow: var(--glass-shadow);
             border: var(--glass-border);
             animation: profileFloat 8s ease-in-out infinite alternate;
@@ -242,7 +242,6 @@
             z-index: 10; 
         }
 
-        /* Keeps content sharp during 3D transform */
         .glass-card > * { transform: translateZ(30px); }
 
         .glass-card h3 {
@@ -273,13 +272,29 @@
         ul.standard-list li { margin-bottom: 10px; font-weight: 300; }
         ul.standard-list strong { color: var(--text-main); font-weight: 600; }
 
-        /* --- PROJECT AWARDS (Specifically Blue) --- */
-        .award-text {
+        /* --- PROJECT AWARDS BOX --- */
+        .award-box {
+            background: rgba(14, 165, 233, 0.1); 
+            border: 1px solid rgba(14, 165, 233, 0.2); 
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .award-box strong {
             color: var(--sky-blue);
-            font-weight: 600;
-            margin-top: 15px;
-            display: block;
             font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .award-box span {
+            color: var(--sky-blue);
+            font-size: 0.85rem;
+            font-weight: 400;
+            opacity: 0.9;
+            display: block;
+            margin-top: 4px;
         }
 
         /* --- SKILLS PILLS --- */
@@ -414,8 +429,12 @@
             <div class="glass-card reveal-up delay-1">
                 <h4>Thermochemical Energy Storage (TCES)</h4>
                 <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 10px;">Investigated thermochemical energy storage using salt hydrates, focusing on energy storage behaviour. Designed and tested a reactor concept to study charging/discharging response and thermal efficiency.</p>
-                <!-- SPECIFICALLY BLUE AWARD TEXT -->
-                <span class="award-text">🏆 Awarded Best Project (2025-26)<br><span style="font-size: 0.85rem; font-weight: 400; color: var(--text-muted);">DKTE Society's Engineering Institute</span></span>
+                
+                <!-- THE NEW LIGHT BLUE AWARD BOX -->
+                <div class="award-box">
+                    <strong>🏆 Awarded Best Project (2025-26)</strong>
+                    <span>DKTE Society's Engineering Institute.</span>
+                </div>
             </div>
             
             <div class="glass-card reveal-up delay-2">
@@ -550,7 +569,6 @@
                         const centerX = rect.width / 2;
                         const centerY = rect.height / 2;
                         
-                        // Calculate rotation based on cursor position
                         const rotateX = ((y - centerY) / centerY) * -8; 
                         const rotateY = ((x - centerX) / centerX) * 8;
                         
@@ -558,7 +576,6 @@
                     });
 
                     card.addEventListener("mouseleave", () => {
-                        // Smoothly return to original state
                         card.style.transform = `perspective(1000px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg)`;
                     });
                 });
