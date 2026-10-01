@@ -4,414 +4,609 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Achyut Anant Deshpande | Mechanical Engineer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Portfolio of Achyut Anant Deshpande, Mechanical Engineer specialising in mechanical design, CAD modelling, manufacturing drawings and conveyor design.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* --- FRESH MINIMAL THEME VARIABLES --- */
+        /* =========================================================
+           THEME — light "blueprint" look for a Mechanical Engineer
+           ========================================================= */
         :root {
-            --bg-pure: #ffffff;
-            --sky-blue: #0ea5e9;
-            --sky-blue-light: #e0f2fe;
-            --text-main: #0f172a; /* Deep black/slate */
-            --text-muted: #475569;
-            
-            /* Liquid Glass Variables */
-            --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(224, 242, 254, 0.3));
-            --glass-border: 1px solid rgba(255, 255, 255, 0.8);
-            --glass-shadow: 0 12px 40px rgba(14, 165, 233, 0.08);
-            
-            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            --bg: #ffffff;
+            --sky: #0ea5e9;
+            --sky-dark: #0369a1;
+            --sky-light: #e0f2fe;
+            --ink: #0f172a;
+            --muted: #475569;
+            --line: rgba(14, 165, 233, 0.18);
+            --line-strong: rgba(14, 165, 233, 0.35);
+            --blueprint: #0b3a5b;
+            --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+            --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(224, 242, 254, 0.45));
+            --shadow: 0 12px 40px rgba(14, 165, 233, 0.08);
+            --shadow-hover: 0 22px 50px rgba(14, 165, 233, 0.16);
+            --ease: cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* --- GLOBAL RESETS & BASE --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body, html {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--bg-pure);
-            color: var(--text-main);
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+        body {
+            font-family: 'Outfit', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
             line-height: 1.7;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
         }
 
-        h1, h2, h3, h4 { font-weight: 600; }
+        h1, h2, h3, h4 { font-weight: 600; line-height: 1.25; }
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; display: block; }
 
-        /* --- FLUID BACKGROUND ANIMATION --- */
-        .fluid-bg {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            z-index: -1;
-            overflow: hidden;
-            background: #ffffff;
+        .icon { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+        /* ---------- BACKGROUND: blueprint grid + soft blobs ---------- */
+        .bg {
+            position: fixed; inset: 0; z-index: -1; overflow: hidden;
+            background-color: #fff;
+            background-image:
+                linear-gradient(rgba(14, 165, 233, 0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14, 165, 233, 0.07) 1px, transparent 1px),
+                linear-gradient(rgba(14, 165, 233, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14, 165, 233, 0.035) 1px, transparent 1px);
+            background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+        }
+        .bg::after {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, transparent 30%, rgba(255,255,255,0.85) 100%);
+        }
+        .blob { position: absolute; filter: blur(90px); opacity: 0.45; border-radius: 50%; animation: drift 28s ease-in-out infinite alternate; }
+        .blob-1 { top: -15%; left: -10%; width: 45vw; height: 45vw; background: #bae6fd; }
+        .blob-2 { bottom: -25%; right: -10%; width: 55vw; height: 55vw; background: #7dd3fc; animation-duration: 34s; animation-direction: alternate-reverse; }
+        @keyframes drift {
+            from { transform: translate(0, 0) scale(1); }
+            to   { transform: translate(8vw, 6vh) scale(1.1); }
         }
 
-        .blob {
-            position: absolute;
-            filter: blur(90px);
-            opacity: 0.6;
-            animation: morph 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        /* ---------- SCROLL PROGRESS ---------- */
+        .progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--sky); z-index: 200; }
 
-        .blob-1 {
-            top: -10%; left: -10%;
-            width: 50vw; height: 50vw;
-            background: #bae6fd;
-            animation-duration: 25s;
+        /* ---------- NAVBAR ---------- */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 18px 8%;
+            transition: all 0.4s var(--ease);
         }
-
-        .blob-2 {
-            bottom: -20%; right: -10%;
-            width: 60vw; height: 60vw;
-            background: #7dd3fc;
-            animation-duration: 30s;
-            animation-direction: alternate-reverse;
+        .nav.scrolled {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--line);
+            padding: 10px 8%;
         }
-
-        @keyframes morph {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
-            50% { transform: translate(10vw, 10vh) scale(1.1) rotate(180deg); border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-            100% { transform: translate(-10vw, 5vh) scale(0.9) rotate(360deg); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
-        }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 10%;
+        .logo { display: flex; align-items: center; gap: 12px; font-weight: 600; }
+        .logo-mark {
+            width: 40px; height: 40px; display: grid; place-items: center;
+            font-family: var(--mono); font-size: 0.95rem; font-weight: 600; color: var(--sky-dark);
+            border: 1.5px solid var(--sky); border-radius: 10px; background: #fff;
             position: relative;
-            z-index: 2;
-            gap: 50px;
         }
+        .logo-mark::after {
+            content: ''; position: absolute; top: 4px; right: 4px; width: 5px; height: 5px;
+            border-radius: 50%; border: 1.5px solid var(--sky);
+        }
+        .logo-text { font-size: 1.05rem; letter-spacing: 0.2px; }
 
-        .hero-content { flex: 1; max-width: 650px; }
+        .nav-links { display: flex; align-items: center; gap: 34px; list-style: none; }
+        .nav-links a { font-size: 0.98rem; font-weight: 500; color: var(--muted); position: relative; transition: color 0.3s; }
+        .nav-links a::after {
+            content: ''; position: absolute; left: 0; bottom: -4px; height: 2px; width: 0;
+            background: var(--sky); transition: width 0.3s var(--ease);
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .nav-links a.btn, .nav-links a.btn:hover { color: #fff; }
+        .nav-links a.btn::after { display: none; }
+        .menu-btn { display: none; background: none; border: 1px solid var(--line-strong); border-radius: 10px; padding: 8px; cursor: pointer; color: var(--ink); }
+
+        /* ---------- BUTTONS ---------- */
+        .btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 13px 26px; border-radius: 12px;
+            font-family: inherit; font-size: 1rem; font-weight: 600;
+            transition: all 0.35s var(--ease); cursor: pointer;
+        }
+        .btn-primary { background: var(--sky); color: #fff; box-shadow: 0 6px 18px rgba(14, 165, 233, 0.3); }
+        .btn-primary:hover { background: #0284c7; transform: translateY(-3px); box-shadow: 0 10px 24px rgba(14, 165, 233, 0.4); }
+        .btn-outline { border: 1.5px solid var(--sky); color: var(--sky-dark); background: rgba(255,255,255,0.7); }
+        .btn-outline:hover { background: var(--sky-light); transform: translateY(-3px); }
+        .btn-sm { padding: 9px 18px; font-size: 0.92rem; border-radius: 10px; }
+
+        /* ---------- HERO ---------- */
+        .hero {
+            min-height: 92vh;
+            display: flex; align-items: center; justify-content: space-between; gap: 60px;
+            padding: 130px 8% 70px;
+        }
+        .hero-content { flex: 1; max-width: 660px; }
+
+        .eyebrow {
+            display: inline-flex; align-items: center; gap: 12px;
+            font-family: var(--mono); font-size: 0.82rem; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--sky-dark); margin-bottom: 22px;
+        }
+        .eyebrow::before { content: ''; width: 34px; height: 2px; background: var(--sky); }
 
         .hero h1 {
-            font-size: clamp(3rem, 5vw, 5rem);
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            color: var(--text-main);
-            letter-spacing: -1px;
+            font-size: clamp(2.7rem, 5vw, 4.6rem);
+            font-weight: 700; line-height: 1.08; letter-spacing: -1.5px;
+            margin-bottom: 18px;
         }
+        .hero h1 .accent { color: var(--sky); }
 
-        .hero h3 {
-            font-size: clamp(1.2rem, 2vw, 1.5rem);
-            color: var(--sky-blue);
-            font-weight: 500;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
+        .typed-line {
+            font-size: clamp(1.15rem, 2vw, 1.45rem); font-weight: 500; color: var(--muted);
+            margin-bottom: 22px; min-height: 1.7em; display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
         }
-
-        /* TYPING CURSOR */
-        .cursor {
-            display: inline-block;
-            width: 2px;
-            height: 1.2em;
-            background-color: var(--sky-blue);
-            margin-left: 5px;
-            animation: blink 1s step-end infinite;
-            vertical-align: middle;
-        }
+        .typed-line .typed-text { color: var(--sky-dark); font-family: var(--mono); font-weight: 500; }
+        .cursor { display: inline-block; width: 2px; height: 1.2em; background: var(--sky); animation: blink 1s step-end infinite; }
         .cursor.typing { animation: none; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes blink { 50% { opacity: 0; } }
 
-        .hero p {
-            color: var(--text-muted);
-            font-size: 1.15rem;
-            margin-bottom: 40px;
-            font-weight: 300;
+        .hero p.lead { color: var(--muted); font-size: 1.15rem; font-weight: 400; margin-bottom: 34px; max-width: 600px; }
+
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 34px; }
+
+        .socials { display: flex; gap: 12px; }
+        .socials a {
+            width: 44px; height: 44px; display: grid; place-items: center;
+            border: 1px solid var(--line-strong); border-radius: 12px; color: var(--sky-dark);
+            background: rgba(255,255,255,0.8); transition: all 0.3s var(--ease);
         }
+        .socials a:hover { background: var(--sky); color: #fff; border-color: var(--sky); transform: translateY(-3px); }
 
-        /* Profile Image */
-        .hero-profile-img {
-            width: clamp(250px, 25vw, 380px);
-            height: clamp(250px, 25vw, 380px);
-            object-fit: cover;
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-            box-shadow: var(--glass-shadow);
-            border: var(--glass-border);
-            animation: profileFloat 8s ease-in-out infinite alternate;
+        /* Profile photo inside a rotating gear ring */
+        .profile {
+            position: relative; flex-shrink: 0;
+            width: clamp(270px, 30vw, 430px); aspect-ratio: 1;
         }
-
-        @keyframes profileFloat {
-            0% { transform: translateY(0) rotate(0deg); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
-            100% { transform: translateY(-15px) rotate(3deg); border-radius: 60% 40% 30% 70% / 50% 60% 40% 60%; }
+        .profile .gear { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 60s linear infinite; }
+        .profile .ticks { position: absolute; inset: 0; width: 100%; height: 100%; }
+        .profile img {
+            position: absolute; inset: 11%; width: 78%; height: 78%;
+            object-fit: cover; border-radius: 50%;
+            border: 6px solid #fff; box-shadow: 0 20px 50px rgba(14, 165, 233, 0.22);
+            background: var(--sky-light);
         }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* --- CONTACT BAR --- */
-        .contact-bar {
+        .float-chip {
+            position: absolute; display: inline-flex; align-items: center; gap: 8px;
+            background: #fff; border: 1px solid var(--line-strong); border-radius: 12px;
+            padding: 8px 14px; font-size: 0.85rem; font-weight: 600; color: var(--ink);
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+            animation: bob 5s ease-in-out infinite alternate;
+        }
+        .float-chip .icon { color: var(--sky); width: 16px; height: 16px; }
+        .chip-1 { top: 10%; right: -4%; }
+        .chip-2 { bottom: 10%; left: -6%; animation-delay: -2.5s; }
+        @keyframes bob { to { transform: translateY(-10px); } }
+
+        /* ---------- STATS STRIP ---------- */
+        .stats {
+            margin: 0 8%;
+            display: grid; grid-template-columns: repeat(4, 1fr);
             background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-top: var(--glass-border);
-            border-bottom: var(--glass-border);
-            padding: 20px 10%;
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 10;
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow);
         }
+        .stat { padding: 28px 20px; text-align: center; position: relative; }
+        .stat + .stat::before { content: ''; position: absolute; left: 0; top: 22%; bottom: 22%; border-left: 1px dashed var(--line-strong); }
+        .stat-num { font-family: var(--mono); font-size: 2.3rem; font-weight: 600; color: var(--sky); line-height: 1.1; }
+        .stat-label { font-size: 0.95rem; color: var(--muted); margin-top: 6px; }
 
-        .contact-bar a, .contact-bar span {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
+        /* ---------- SECTIONS ---------- */
+        .section { padding: 110px 8%; }
+        .section-header { text-align: center; margin-bottom: 56px; }
+        .section-tag {
+            display: block; font-family: var(--mono); font-size: 0.8rem; letter-spacing: 3px;
+            color: var(--sky-dark); margin-bottom: 10px; text-transform: uppercase;
         }
+        .section-header h2 { font-size: clamp(2rem, 3.5vw, 2.6rem); }
+        .dim { display: block; width: 170px; height: 14px; margin: 16px auto 0; stroke: var(--sky); fill: var(--sky); }
+        .dim line { stroke-width: 1.4; }
 
-        .contact-bar a:hover {
-            color: var(--sky-blue);
-            transform: translateY(-2px);
-        }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 28px; }
 
-        .btn-resume {
-            background: var(--sky-blue);
-            color: #fff !important;
-            padding: 8px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
-        }
-        
-        .btn-resume:hover {
-            background: #0284c7;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
-        }
-
-        /* --- SECTIONS & GRIDS --- */
-        .section { padding: 100px 10%; position: relative; z-index: 2; }
-        
-        .section-header { 
-            margin-bottom: 50px; 
-            text-align: center;
-        }
-        
-        .section-header h2 {
-            font-size: 2.5rem;
-            color: var(--text-main);
-            display: inline-block;
-            position: relative;
-        }
-        
-        .section-header h2::after {
-            content: '';
-            position: absolute;
-            bottom: -8px; left: 50%;
-            transform: translateX(-50%);
-            width: 40px; height: 3px;
-            background: var(--sky-blue);
-            border-radius: 2px;
-            transition: width 0.3s ease;
-        }
-        
-        .section:hover .section-header h2::after { width: 80%; }
-
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-
-        /* --- LIQUID GLASS CARDS (3D INTERACTIVE) --- */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: var(--glass-border);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: var(--glass-shadow);
-            position: relative;
-            height: 100%;
-            transform-style: preserve-3d;
-            transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
-            transition: transform 0.1s ease-out, box-shadow 0.4s ease;
-            will-change: transform;
-        }
-
-        .glass-card:hover {
-            box-shadow: 0 20px 50px rgba(14, 165, 233, 0.15);
-            z-index: 10; 
-        }
-
-        .glass-card > * { transform: translateZ(30px); }
-
-        .glass-card h3 {
-            color: var(--sky-blue);
-            margin-bottom: 25px;
-            font-size: 1.3rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 1px solid rgba(14, 165, 233, 0.2);
-            padding-bottom: 10px;
-        }
-
-        .entry { margin-bottom: 30px; }
-        .entry h4 { font-size: 1.2rem; color: var(--text-main); margin-bottom: 5px; }
-
-        .date-badge {
-            display: inline-block;
-            background: var(--sky-blue-light);
-            color: var(--sky-blue);
-            padding: 4px 12px;
+        /* ---------- CARDS (with drawing-frame corner marks) ---------- */
+        .card {
+            --c: rgba(14, 165, 233, 0.55);
+            background:
+                linear-gradient(var(--c), var(--c)) left 14px top 14px / 16px 2px no-repeat,
+                linear-gradient(var(--c), var(--c)) left 14px top 14px / 2px 16px no-repeat,
+                linear-gradient(var(--c), var(--c)) right 14px top 14px / 16px 2px no-repeat,
+                linear-gradient(var(--c), var(--c)) right 14px top 14px / 2px 16px no-repeat,
+                linear-gradient(var(--c), var(--c)) left 14px bottom 14px / 16px 2px no-repeat,
+                linear-gradient(var(--c), var(--c)) left 14px bottom 14px / 2px 16px no-repeat,
+                linear-gradient(var(--c), var(--c)) right 14px bottom 14px / 16px 2px no-repeat,
+                linear-gradient(var(--c), var(--c)) right 14px bottom 14px / 2px 16px no-repeat,
+                var(--glass-bg);
+            backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--line);
             border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 12px;
+            padding: 44px 40px;
+            box-shadow: var(--shadow);
+            transition: transform 0.15s ease-out, box-shadow 0.4s ease;
+        }
+        .card:hover { box-shadow: var(--shadow-hover); }
+
+        .card-title {
+            display: flex; align-items: center; gap: 12px;
+            font-family: var(--mono); font-size: 0.92rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--sky-dark);
+            padding-bottom: 14px; margin-bottom: 30px;
+            border-bottom: 1px dashed var(--line-strong);
+        }
+        .card-title .ic {
+            width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center;
+            background: var(--sky-light); color: var(--sky-dark);
+        }
+        .sub-title { margin-top: 40px; }
+
+        /* ---------- TIMELINE ---------- */
+        .timeline { position: relative; padding-left: 34px; }
+        .timeline::before {
+            content: ''; position: absolute; left: 8px; top: 8px; bottom: 8px;
+            border-left: 2px dashed var(--line-strong);
+        }
+        .t-item { position: relative; margin-bottom: 34px; }
+        .t-item:last-child { margin-bottom: 0; }
+        .t-item::before {
+            content: ''; position: absolute; left: -34px; top: 5px;
+            width: 18px; height: 18px; border-radius: 50%;
+            background: #fff; border: 3px solid var(--sky);
+            box-shadow: 0 0 0 4px var(--sky-light);
+        }
+        .t-item.current::before { background: var(--sky); animation: pulse 2s ease-out infinite; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.45); }
+            100% { box-shadow: 0 0 0 12px rgba(14, 165, 233, 0); }
+        }
+        .t-item h4 { font-size: 1.18rem; color: var(--ink); }
+        .t-org { color: var(--sky-dark); font-weight: 500; font-size: 1rem; }
+        .t-meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 12px; }
+        .badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-family: var(--mono); font-size: 0.78rem; font-weight: 500;
+            padding: 4px 11px; border-radius: 8px;
+            background: var(--sky-light); color: var(--sky-dark);
+        }
+        .badge.live { background: #dcfce7; color: #15803d; }
+        .badge.live::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #22c55e; }
+        .badge.grey { background: #f1f5f9; color: var(--muted); }
+        .t-item p { color: var(--muted); font-size: 1rem; }
+
+        .bullets { list-style: none; color: var(--muted); }
+        .bullets li { position: relative; padding-left: 22px; margin-bottom: 9px; font-size: 1rem; }
+        .bullets li::before {
+            content: ''; position: absolute; left: 0; top: 0.72em; width: 10px; height: 2px; background: var(--sky);
         }
 
-        ul.standard-list { padding-left: 20px; color: var(--text-muted); }
-        ul.standard-list li { margin-bottom: 10px; font-weight: 300; }
-        ul.standard-list strong { color: var(--text-main); font-weight: 600; }
+        .edu-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 6px; }
+        .edu-mini .box {
+            border: 1px dashed var(--line-strong); border-radius: 14px; padding: 16px 18px; background: rgba(255,255,255,0.6);
+        }
+        .edu-mini h5 { font-size: 1rem; font-weight: 600; line-height: 1.35; margin-bottom: 8px; }
+        .score { font-family: var(--mono); font-size: 0.9rem; color: var(--ink); margin-top: 8px; }
+        .score strong { color: var(--sky-dark); }
 
-        /* --- PROJECT AWARDS BOX --- */
-        .award-box {
-            background: rgba(14, 165, 233, 0.1); 
-            border: 1px solid rgba(14, 165, 233, 0.2); 
-            padding: 12px 16px;
-            border-radius: 12px;
-            margin-top: 20px;
-            display: inline-block;
+        /* ---------- PROJECT CARDS ---------- */
+        .project { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+        .project-media {
+            position: relative; height: 200px;
+            background-color: var(--blueprint);
+            background-image:
+                linear-gradient(rgba(224, 242, 254, 0.14) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(224, 242, 254, 0.14) 1px, transparent 1px),
+                linear-gradient(rgba(224, 242, 254, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(224, 242, 254, 0.06) 1px, transparent 1px);
+            background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+            display: grid; place-items: center;
+            border-bottom: 3px solid var(--sky);
+        }
+        .project-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        .project-media svg.drawing {
+            width: 78%; height: 82%;
+            stroke: #e0f2fe; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+            transition: transform 0.6s var(--ease);
+        }
+        .project:hover .project-media svg.drawing { transform: scale(1.05); }
+        .drawing .thin { stroke-width: 1; opacity: 0.7; }
+        .drawing .cl { stroke-width: 1; opacity: 0.5; stroke-dasharray: 12 4 3 4; }
+        .drawing .fill { fill: #e0f2fe; stroke: none; }
+        .drawing text { fill: #e0f2fe; stroke: none; font-family: var(--mono); font-size: 10px; }
+        .fig-label {
+            position: absolute; top: 12px; left: 14px;
+            font-family: var(--mono); font-size: 0.72rem; letter-spacing: 2px; color: rgba(224, 242, 254, 0.85);
+        }
+        .project-body { padding: 28px 30px 32px; flex: 1; display: flex; flex-direction: column; }
+        .project-body h4 { font-size: 1.22rem; margin-bottom: 10px; }
+        .project-body p { color: var(--muted); font-size: 1rem; }
+
+        .highlight {
+            display: flex; gap: 12px; align-items: flex-start;
+            margin-top: 18px; padding: 12px 14px; border-radius: 12px;
+            background: rgba(14, 165, 233, 0.08); border: 1px solid var(--line-strong);
+        }
+        .highlight .icon { color: var(--sky-dark); margin-top: 3px; }
+        .highlight strong { display: block; color: var(--sky-dark); font-size: 0.95rem; }
+        .highlight span { display: block; color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 20px; }
+        .tag {
+            font-family: var(--mono); font-size: 0.74rem; font-weight: 500;
+            padding: 4px 10px; border-radius: 6px;
+            color: var(--sky-dark); background: rgba(224, 242, 254, 0.7); border: 1px solid var(--line);
         }
 
-        .award-box strong {
-            color: var(--sky-blue);
-            font-size: 0.95rem;
-            font-weight: 600;
+        /* ---------- SKILLS ---------- */
+        .group-label { display: block; font-weight: 600; color: var(--ink); margin-bottom: 14px; font-size: 1.02rem; }
+        .pills { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; margin-bottom: 30px; }
+        .pills:last-child { margin-bottom: 0; }
+        .pills li {
+            padding: 8px 16px; border-radius: 10px; font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.8); border: 1px solid var(--line-strong);
+            transition: all 0.3s var(--ease);
         }
+        .pills li:hover { background: var(--sky); color: #fff; border-color: var(--sky); transform: translateY(-3px); box-shadow: 0 6px 16px rgba(14, 165, 233, 0.3); }
 
-        .award-box span {
-            color: var(--sky-blue);
-            font-size: 0.85rem;
-            font-weight: 400;
-            opacity: 0.9;
-            display: block;
-            margin-top: 4px;
+        .check-list { list-style: none; }
+        .check-list li { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px; color: var(--muted); font-size: 1rem; }
+        .check-list li:last-child { margin-bottom: 0; }
+        .check-list .dot {
+            width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; flex-shrink: 0;
+            background: var(--sky-light); color: var(--sky-dark);
         }
+        .check-list .dot .icon { width: 15px; height: 15px; stroke-width: 2.5; }
+        .check-list strong { color: var(--ink); font-weight: 600; }
 
-        /* --- SKILLS PILLS --- */
-        .skill-list {
-            display: flex; flex-wrap: wrap; gap: 10px;
-            list-style: none; padding: 0; margin: 15px 0 30px 0;
+        /* ---------- CONTACT ---------- */
+        .contact-card { max-width: 980px; margin: 0 auto; text-align: center; }
+        .contact-card h3 { font-size: clamp(1.6rem, 3vw, 2.1rem); margin-bottom: 12px; }
+        .contact-card > p { color: var(--muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 36px; }
+        .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 36px; text-align: left; }
+        .contact-item {
+            display: flex; align-items: center; gap: 14px;
+            padding: 16px 18px; border-radius: 14px;
+            background: rgba(255, 255, 255, 0.85); border: 1px solid var(--line);
+            transition: all 0.3s var(--ease);
         }
+        a.contact-item:hover { border-color: var(--sky); transform: translateY(-3px); box-shadow: 0 10px 22px rgba(14, 165, 233, 0.15); }
+        .contact-item .ic { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: var(--sky-light); color: var(--sky-dark); flex-shrink: 0; }
+        .contact-item small { display: block; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; }
+        .contact-item span { display: block; font-weight: 500; font-size: 0.95rem; color: var(--ink); word-break: break-word; }
 
-        .skill-list li {
-            background: rgba(255, 255, 255, 0.6);
-            color: var(--text-main);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid rgba(14, 165, 233, 0.2);
-            transition: var(--transition);
-            font-weight: 400;
+        /* ---------- FOOTER: engineering drawing title block ---------- */
+        footer { padding: 20px 8% 50px; }
+        .title-block {
+            display: grid; grid-template-columns: 2.2fr 1.3fr 1fr 1fr 1fr;
+            border: 1.5px solid var(--ink); background: rgba(255,255,255,0.9);
+            font-family: var(--mono);
         }
+        .tb-cell { padding: 10px 14px; border-left: 1px solid var(--ink); }
+        .tb-cell:first-child { border-left: none; }
+        .tb-cell small { display: block; font-size: 0.66rem; letter-spacing: 1.5px; color: var(--muted); }
+        .tb-cell strong { display: block; font-size: 0.86rem; font-weight: 600; color: var(--ink); margin-top: 2px; }
+        .copyright { text-align: center; color: var(--muted); font-size: 0.9rem; margin-top: 18px; }
 
-        .skill-list li:hover {
-            background: var(--sky-blue);
-            color: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3);
-        }
+        /* ---------- SCROLL REVEAL ---------- */
+        .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+        .reveal.active { opacity: 1; transform: none; }
+        .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; }
+        .tilt.reveal.active { transition: opacity 0.8s var(--ease), transform 0.15s ease-out, box-shadow 0.4s ease; transition-delay: 0s; }
 
-        /* --- WATER CASCADING SCROLL ANIMATIONS --- */
-        .reveal-up { 
-            opacity: 0; 
-            transform: translateY(40px); 
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
-        }
-        .reveal-up.active { opacity: 1; transform: translateY(0); }
-        .delay-1 { transition-delay: 0.1s; }
-        .delay-2 { transition-delay: 0.2s; }
-        .delay-3 { transition-delay: 0.3s; }
-
-        /* --- MOBILE OPTIMIZATION --- */
+        /* ---------- RESPONSIVE ---------- */
         @media (max-width: 992px) {
-            .hero { flex-direction: column-reverse; text-align: center; padding: 120px 5% 60px; justify-content: center; }
-            .hero h3 { justify-content: center; }
-            .contact-bar { padding: 20px 5%; gap: 15px; }
+            .nav, .nav.scrolled { padding: 12px 5%; }
+            .menu-btn { display: grid; }
+            .nav-links {
+                position: absolute; top: 100%; left: 5%; right: 5%;
+                flex-direction: column; gap: 0; align-items: stretch;
+                background: #fff; border: 1px solid var(--line); border-radius: 16px;
+                box-shadow: var(--shadow-hover); padding: 8px;
+                opacity: 0; pointer-events: none; transform: translateY(-8px); transition: all 0.3s var(--ease);
+            }
+            .nav-links.open { opacity: 1; pointer-events: auto; transform: none; }
+            .nav-links a { display: block; padding: 12px 14px; border-radius: 10px; }
+            .nav-links a::after { display: none; }
+            .nav-links a.active { background: var(--sky-light); }
+            .nav-links .btn { justify-content: center; margin-top: 6px; }
+
+            .hero { flex-direction: column-reverse; text-align: center; padding: 120px 5% 60px; gap: 40px; min-height: auto; }
+            .eyebrow, .typed-line, .hero-actions, .socials { justify-content: center; }
+            .hero p.lead { margin-left: auto; margin-right: auto; }
+            .chip-1 { right: 0; } .chip-2 { left: 0; }
+
+            .stats { margin: 0 5%; grid-template-columns: repeat(2, 1fr); }
+            .stat:nth-child(3)::before { display: none; }
+            .stat:nth-child(n+3) { border-top: 1px dashed var(--line-strong); }
+
             .section { padding: 80px 5%; }
-            .glass-card { padding: 30px 20px; transform: none !important; }
+            .card { padding: 36px 24px; transform: none !important; }
+            .project { padding: 0; }
+            footer { padding: 20px 5% 40px; }
+            .title-block { grid-template-columns: 1fr 1fr; }
+            .tb-cell { border-left: none; border-top: 1px solid var(--ink); }
+            .tb-cell:first-child { grid-column: 1 / -1; border-top: none; }
+            .tb-cell:nth-child(3), .tb-cell:nth-child(5) { border-left: 1px solid var(--ink); }
+        }
+        @media (max-width: 560px) {
+            .logo-text { display: none; }
+            .eyebrow { font-size: 0.74rem; letter-spacing: 1.5px; }
+            .eyebrow::before { display: none; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .edu-mini, .contact-grid { grid-template-columns: 1fr; }
+            .stat-num { font-size: 1.9rem; }
+            .float-chip { font-size: 0.78rem; padding: 6px 10px; }
+            .hero-actions .btn { flex: 1 1 100%; justify-content: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+            .reveal { opacity: 1; transform: none; }
+            html { scroll-behavior: auto; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Fluid Background -->
-    <div class="fluid-bg">
+    <!-- ICON SPRITE -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.910a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+        <symbol id="i-mail" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+        <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+        <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
+        <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+        <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></symbol>
+        <symbol id="i-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+        <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+        <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+        <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.910 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+        <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol>
+        <symbol id="i-menu" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+        <symbol id="dimline" viewBox="0 0 170 14">
+            <line x1="1" y1="0" x2="1" y2="14"/><line x1="169" y1="0" x2="169" y2="14"/>
+            <line x1="4" y1="7" x2="166" y2="7"/>
+            <path d="M3 7 L13 3 L13 11 Z" stroke="none"/><path d="M167 7 L157 3 L157 11 Z" stroke="none"/>
+        </symbol>
+    </svg>
+
+    <div class="progress" id="progress"></div>
+
+    <div class="bg" aria-hidden="true">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
     </div>
 
-    <header class="hero">
-        <div class="hero-content reveal-up active">
-            <h1>Achyut Anant Deshpande</h1>
-            <h3><span class="typed-text"></span><span class="cursor"></span></h3>
-            <p>Mechanical Engineer with hands-on experience in mechanical design, CAD modelling, engineering drawings, and bulk material handling equipment. Specializing in 2D/3D modelling, detailed manufacturing drawings, and precision conveyor design.</p>
+    <!-- NAVBAR -->
+    <nav class="nav" id="nav">
+        <a href="#top" class="logo" aria-label="Back to top">
+            <span class="logo-mark">AD</span>
+            <span class="logo-text">Achyut Deshpande</span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="Achyut_Deshpande_Resume.pdf" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><svg class="icon"><use href="#i-download"/></svg>Resume</a></li>
+        </ul>
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false"><svg class="icon" style="width:22px;height:22px"><use href="#i-menu"/></svg></button>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero" id="top">
+        <div class="hero-content reveal active">
+            <span class="eyebrow">B.Tech Mechanical · Pune, India</span>
+            <h1>Achyut Anant <span class="accent">Deshpande</span></h1>
+            <div class="typed-line"><span class="typed-text"></span><span class="cursor"></span></div>
+            <p class="lead">Mechanical Engineer with hands-on experience in mechanical design, CAD modelling, engineering drawings, and bulk material handling equipment. Specialising in 2D/3D modelling, detailed manufacturing drawings, and precision conveyor design.</p>
+
+            <div class="hero-actions">
+                <a href="Achyut_Deshpande_Resume.pdf" target="_blank" rel="noopener" class="btn btn-primary"><svg class="icon"><use href="#i-download"/></svg>Download Resume</a>
+                <a href="#contact" class="btn btn-outline">Get in Touch<svg class="icon"><use href="#i-arrow"/></svg></a>
+            </div>
+
+            <div class="socials">
+                <a href="mailto:deshpandeachyut27@gmail.com" aria-label="Email"><svg class="icon"><use href="#i-mail"/></svg></a>
+                <a href="tel:+917420878362" aria-label="Call"><svg class="icon"><use href="#i-phone"/></svg></a>
+                <a href="https://www.linkedin.com/in/achyut-deshpande-b34369334" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="icon"><use href="#i-linkedin"/></svg></a>
+            </div>
         </div>
-        <div class="reveal-up active delay-1">
-            <img src="Image.jpeg" alt="Achyut Anant Deshpande" class="hero-profile-img">
+
+        <div class="profile reveal active d1">
+            <svg class="gear" viewBox="0 0 200 200" aria-hidden="true">
+                <circle cx="100" cy="100" r="95" fill="none" stroke="#0ea5e9" stroke-opacity="0.35" stroke-width="7" stroke-dasharray="6.2 6.2"/>
+                <circle cx="100" cy="100" r="90.5" fill="none" stroke="#0ea5e9" stroke-opacity="0.5" stroke-width="1"/>
+            </svg>
+            <svg class="ticks" viewBox="0 0 200 200" aria-hidden="true" fill="none" stroke="#0369a1" stroke-opacity="0.55" stroke-width="1">
+                <line x1="100" y1="0" x2="100" y2="10"/><line x1="100" y1="190" x2="100" y2="200"/>
+                <line x1="0" y1="100" x2="10" y2="100"/><line x1="190" y1="100" x2="200" y2="100"/>
+            </svg>
+            <img src="Image.jpeg" alt="Achyut Anant Deshpande">
+            <span class="float-chip chip-1"><svg class="icon"><use href="#i-award"/></svg>CSWA Certified</span>
+            <span class="float-chip chip-2"><svg class="icon"><use href="#i-file"/></svg>Patent Filed</span>
         </div>
     </header>
 
-    <div class="contact-bar reveal-up active delay-2">
-        <span>📞 +91 7420878362</span>
-        <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=DmwnWsmCKLBJKXbNPMVTXDRVnVpvqMvtvwwZRRbWTnSZCKxwKkrgKzzdBvdZpjbHMlmfzjcWbnLL">📧 deshpandeachyut27@gmail.com</a>
-        <span>📍 Pune, Maharashtra</span>
-        <a href="https://www.linkedin.com/in/achyut-deshpande-b34369334" target="_blank">🔗 LinkedIn</a>
-        <a href="Achyut_Deshpande_Resume.pdf" target="_blank" class="btn-resume">📄 Resume</a>
+    <!-- STATS -->
+    <div class="stats reveal">
+        <div class="stat"><div class="stat-num">02</div><div class="stat-label">Industry Internships</div></div>
+        <div class="stat"><div class="stat-num">01</div><div class="stat-label">Patent Filed</div></div>
+        <div class="stat"><div class="stat-num">04</div><div class="stat-label">Certifications</div></div>
+        <div class="stat"><div class="stat-num">03</div><div class="stat-label">Design Projects</div></div>
     </div>
 
-    <section class="section">
-        <div class="section-header reveal-up">
-            <h2>Career & Academics</h2>
+    <!-- 01 · CAREER & ACADEMICS -->
+    <section class="section" id="experience">
+        <div class="section-header reveal">
+            <span class="section-tag">01 — Background</span>
+            <h2>Career &amp; Academics</h2>
+            <svg class="dim" aria-hidden="true"><use href="#dimline"/></svg>
         </div>
-        
-        <div class="glass-card reveal-up delay-1">
-            <div class="grid-2">
-                <div>
-                    <h3>INTERNSHIP EXPERIENCE</h3>
-                     <div class="entry">
-                        <h4>Mechanical Design Intern | Screwtech Engineering Pvt. Ltd.</h4>
-                        <span class="date-badge">Jun 2026 - Present</span>
-                        <ul class="standard-list">
+
+        <div class="grid-2">
+            <div class="card reveal d1">
+                <div class="card-title"><span class="ic"><svg class="icon"><use href="#i-briefcase"/></svg></span>Internship Experience</div>
+                <div class="timeline">
+                    <div class="t-item current">
+                        <h4>Mechanical Design Intern</h4>
+                        <div class="t-org">Screwtech Engineering Pvt. Ltd.</div>
+                        <div class="t-meta"><span class="badge">Jun 2026 – Present</span><span class="badge live">Current</span></div>
+                        <ul class="bullets">
                             <li>Create 2D and 3D CAD models for bulk material-handling equipment including Screw Feeders, Screw Conveyors, and Twin Ribbon Conveyors.</li>
                             <li>Prepare manufacturing, fabrication, and detailed drawings with dimensions and design information.</li>
                             <li>Perform engineering calculations and determine design values for conveyor systems.</li>
                             <li>Develop General Arrangement (GA) drawings for complete assemblies.</li>
                         </ul>
                     </div>
-                    <div class="entry">
-                        <h4>Quality Control Intern | Rotadyne Precision Engineering Pvt. Ltd.</h4>
-                        <span class="date-badge">Dec 2024 - Dec 2024</span>
-                        <p style="color: var(--text-muted); font-size: 0.95rem;">Gained practical exposure to quality inspection, dimensional measurement, and quality control processes in a precision engineering environment.</p>
+                    <div class="t-item">
+                        <h4>Quality Control Intern</h4>
+                        <div class="t-org">Rotadyne Precision Engineering Pvt. Ltd.</div>
+                        <div class="t-meta"><span class="badge">Dec 2024</span></div>
+                        <p>Gained practical exposure to quality inspection, dimensional measurement, and quality control processes in a precision engineering environment.</p>
                     </div>
                 </div>
+            </div>
 
-                <div>
-                    <h3>EDUCATIONAL BACKGROUND</h3>
-                    <div class="entry">
-                        <h4>DKTE Society's Textile & Engineering Institute Ichalkaraji</h4>
-                        <span class="date-badge">2022 - 2026</span>
-                        <p style="color: var(--text-main); font-weight: 500;">B.Tech. Mechanical Engineering</p>
+            <div class="card reveal d2">
+                <div class="card-title"><span class="ic"><svg class="icon"><use href="#i-book"/></svg></span>Educational Background</div>
+                <div class="timeline">
+                    <div class="t-item">
+                        <h4>B.Tech. Mechanical Engineering</h4>
+                        <div class="t-org">DKTE Society's Textile &amp; Engineering Institute, Ichalkaranji</div>
+                        <div class="t-meta"><span class="badge">2022 – 2026</span></div>
                     </div>
-                    <div class="grid-2" style="gap: 20px;">
-                        <div class="entry">
-                            <h4>Vidya Mandir Prashala & Jr. college Miraj</h4>
-                            <span class="date-badge" style="background: #f1f5f9; color: var(--text-muted);">2022</span>
-                            <p style="color: var(--text-muted);">HSC: 68.00%</p>
-                        </div>
-                        <div class="entry">
-                            <h4>Ideal English School, Miraj</h4>
-                            <span class="date-badge" style="background: #f1f5f9; color: var(--text-muted);">2020</span>
-                            <p style="color: var(--text-muted);">SSC: 71.40%</p>
+                    <div class="t-item">
+                        <h4>School Education</h4>
+                        <div class="edu-mini">
+                            <div class="box">
+                                <h5>Vidya Mandir Prashala &amp; Jr. College, Miraj</h5>
+                                <span class="badge grey">2022</span>
+                                <div class="score">HSC: <strong>68.00%</strong></div>
+                            </div>
+                            <div class="box">
+                                <h5>Ideal English School, Miraj</h5>
+                                <span class="badge grey">2020</span>
+                                <div class="score">SSC: <strong>71.40%</strong></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -419,46 +614,115 @@
         </div>
     </section>
 
-    <section class="section">
-        <div class="section-header reveal-up">
-            <h2>Innovation & Projects</h2>
+    <!-- 02 · PROJECTS -->
+    <section class="section" id="projects">
+        <div class="section-header reveal">
+            <span class="section-tag">02 — Work</span>
+            <h2>Innovation &amp; Projects</h2>
+            <svg class="dim" aria-hidden="true"><use href="#dimline"/></svg>
         </div>
 
+        <!-- TIP: to show a real photo/CAD render, replace the <svg class="drawing"> inside
+             .project-media with:  <img src="images/your-photo.jpg" alt="Project name">  -->
         <div class="grid-3">
-            <div class="glass-card reveal-up delay-1">
-                <h4>Thermochemical Energy Storage (TCES)</h4>
-                <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 10px;">Investigated thermochemical energy storage using salt hydrates, focusing on energy storage behaviour. Designed and tested a reactor concept to study charging/discharging response and thermal efficiency.</p>
-                
-                <!-- THE NEW LIGHT BLUE AWARD BOX -->
-                <div class="award-box">
-                    <strong>🏆 Awarded Best Project (2025-26)</strong>
-                    <span>DKTE Society's Textile & Engineering Institute Ichalkaraji.</span>
+            <article class="card project tilt reveal d1">
+                <div class="project-media">
+                    <span class="fig-label">FIG. 01</span>
+                    <svg class="drawing" viewBox="0 0 240 140" aria-hidden="true">
+                        <line class="cl" x1="120" y1="6" x2="120" y2="134"/>
+                        <rect x="88" y="20" width="64" height="8" rx="2"/>
+                        <rect x="95" y="28" width="50" height="84" rx="4"/>
+                        <rect x="88" y="112" width="64" height="8" rx="2"/>
+                        <rect class="thin" x="101" y="54" width="38" height="40"/>
+                        <path class="thin" d="M101 64 L111 54 M101 74 L121 54 M101 84 L131 54 M101 94 L139 56 M111 94 L139 66 M121 94 L139 76 M131 94 L139 86"/>
+                        <path d="M40 45 H95 M40 51 H95"/>
+                        <polyline class="thin" points="60,42 67,48 60,54"/>
+                        <path d="M145 89 H205 M145 95 H205"/>
+                        <polyline class="thin" points="185,86 192,92 185,98"/>
+                        <path class="thin" d="M106 136 q4 -4 0 -8 q-4 -4 0 -8 M134 136 q4 -4 0 -8 q-4 -4 0 -8"/>
+                        <path class="thin" d="M84 20 H18 M84 120 H18"/>
+                        <line class="thin" x1="24" y1="23" x2="24" y2="117"/>
+                        <path class="fill" d="M24 21 L21 29 L27 29 Z M24 119 L21 111 L27 111 Z"/>
+                        <text x="28" y="74">H</text>
+                    </svg>
                 </div>
-            </div>
-            
-            <div class="glass-card reveal-up delay-2">
-                <h4>Air-Based Rain Protection Helmet</h4>
-                <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 10px;">Developed a conceptual helmet with an air-inflated dome for rain protection, focusing on structural feasibility, airflow stability, and ergonomics.</p>
-                <span style="margin-top: 15px; color: var(--text-main); font-size: 0.85rem; padding: 6px 12px; background: rgba(255,255,255,0.7); display: inline-block; border-radius: 20px; font-weight: 500;">Patent Filed: 454613-001</span>
-            </div>
-            
-            <div class="glass-card reveal-up delay-3">
-                <h4>Water Surface Waste Collector</h4>
-                <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 10px;">Designed a stationary floating waste-collection concept for ponds and small water bodies, emphasizing low-cost materials, passive operation, and floating-debris removal.</p>
-            </div>
+                <div class="project-body">
+                    <h4>Thermochemical Energy Storage (TCES)</h4>
+                    <p>Investigated thermochemical energy storage using salt hydrates, focusing on energy storage behaviour. Designed and tested a reactor concept to study charging/discharging response and thermal efficiency.</p>
+                    <div class="highlight">
+                        <svg class="icon"><use href="#i-award"/></svg>
+                        <div><strong>Best Project Award (2025–26)</strong><span>DKTE Society's Textile &amp; Engineering Institute, Ichalkaranji</span></div>
+                    </div>
+                    <div class="tags"><span class="tag">Thermal Systems</span><span class="tag">Reactor Design</span><span class="tag">Testing</span></div>
+                </div>
+            </article>
+
+            <article class="card project tilt reveal d2">
+                <div class="project-media">
+                    <span class="fig-label">FIG. 02</span>
+                    <svg class="drawing" viewBox="0 0 240 140" aria-hidden="true">
+                        <line class="cl" x1="120" y1="14" x2="120" y2="132"/>
+                        <path d="M44 112 C44 22 196 22 196 112"/>
+                        <path class="thin" d="M52 112 C52 34 188 34 188 112"/>
+                        <path d="M82 118 C82 88 98 76 120 76 C142 76 158 88 158 118 Z"/>
+                        <path d="M74 118 H166"/>
+                        <path class="thin" d="M146 92 Q160 100 162 118"/>
+                        <path class="thin" d="M120 74 V54 M100 80 L88 62 M140 80 L152 62"/>
+                        <polyline class="thin" points="115,59 120,54 125,59"/>
+                        <polyline class="thin" points="87,69 88,62 95,64"/>
+                        <polyline class="thin" points="145,64 152,62 153,69"/>
+                        <path class="thin" d="M64 14 l-3 8 M94 4 l-3 8 M150 4 l-3 8 M178 14 l-3 8 M28 70 l-5 8 M212 70 l5 8 M34 50 l-4 8 M206 50 l4 8"/>
+                    </svg>
+                </div>
+                <div class="project-body">
+                    <h4>Air-Based Rain Protection Helmet</h4>
+                    <p>Developed a conceptual helmet with an air-inflated dome for rain protection, focusing on structural feasibility, airflow stability, and ergonomics.</p>
+                    <div class="highlight">
+                        <svg class="icon"><use href="#i-file"/></svg>
+                        <div><strong>Patent Filed</strong><span>Application No. 454613-001</span></div>
+                    </div>
+                    <div class="tags"><span class="tag">Product Design</span><span class="tag">Ergonomics</span><span class="tag">Patent</span></div>
+                </div>
+            </article>
+
+            <article class="card project tilt reveal d3">
+                <div class="project-media">
+                    <span class="fig-label">FIG. 03</span>
+                    <svg class="drawing" viewBox="0 0 240 140" aria-hidden="true">
+                        <path class="thin" d="M8 62 q10 -6 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0"/>
+                        <rect x="66" y="48" width="34" height="16" rx="8"/>
+                        <rect x="140" y="48" width="34" height="16" rx="8"/>
+                        <path d="M83 48 V34 H157 V48"/>
+                        <path d="M102 60 L110 108 H130 L138 60"/>
+                        <path class="thin" d="M113 64 V108 M120 64 V108 M127 64 V108 M105 78 H135 M107 93 H133"/>
+                        <circle class="thin" cx="34" cy="58" r="3"/><rect class="thin" x="46" y="54" width="7" height="5"/><circle class="thin" cx="58" cy="60" r="2"/>
+                        <path class="thin" d="M14 80 H58"/><polyline class="thin" points="52,76 58,80 52,84"/>
+                        <path class="thin" d="M182 80 H226"/><polyline class="thin" points="220,76 226,80 220,84"/>
+                        <path class="cl" d="M8 128 H232"/>
+                    </svg>
+                </div>
+                <div class="project-body">
+                    <h4>Water Surface Waste Collector</h4>
+                    <p>Designed a stationary floating waste-collection concept for ponds and small water bodies, emphasising low-cost materials, passive operation, and floating-debris removal.</p>
+                    <div class="tags"><span class="tag">Concept Design</span><span class="tag">Low-Cost</span><span class="tag">Environment</span></div>
+                </div>
+            </article>
         </div>
     </section>
 
-    <section class="section">
-        <div class="section-header reveal-up">
+    <!-- 03 · COMPETENCIES -->
+    <section class="section" id="skills">
+        <div class="section-header reveal">
+            <span class="section-tag">03 — Toolkit</span>
             <h2>Competencies</h2>
+            <svg class="dim" aria-hidden="true"><use href="#dimline"/></svg>
         </div>
 
         <div class="grid-2">
-            <div class="glass-card reveal-up delay-1">
-                <h3>TECHNICAL SKILLS</h3>
-                <p style="margin:0; font-weight: 600; color: var(--text-main);">CAD, Drafting & Design</p>
-                <ul class="skill-list">
+            <div class="card reveal d1">
+                <div class="card-title"><span class="ic"><svg class="icon"><use href="#i-tool"/></svg></span>Technical Skills</div>
+                <span class="group-label">CAD, Drafting &amp; Design</span>
+                <ul class="pills">
                     <li>SolidWorks</li>
                     <li>AutoCAD 2D/3D</li>
                     <li>Fusion 360</li>
@@ -467,116 +731,165 @@
                     <li>Manufacturing Drawings</li>
                     <li>Conveyor Design</li>
                 </ul>
-                <p style="margin:0; font-weight: 600; color: var(--text-main); margin-top: 25px;">Programming & Tools</p>
-                <ul class="skill-list">
+                <span class="group-label">Programming &amp; Tools</span>
+                <ul class="pills">
                     <li>Python (Basic)</li>
                     <li>C (Basic)</li>
                     <li>Microsoft Office</li>
                 </ul>
+
+                <div class="card-title sub-title"><span class="ic"><svg class="icon"><use href="#i-star"/></svg></span>Extra-Curricular</div>
+                <ul class="pills">
+                    <li>MESA Committee Co-ordinator</li>
+                    <li>Member, IME &amp; SAE India</li>
+                    <li>Member, E-Cell DKTE</li>
+                </ul>
             </div>
 
-            <div class="glass-card reveal-up delay-2">
-                <h3>CERTIFICATES & ACHIEVEMENTS</h3>
-                <ul class="standard-list">
-                    <li><strong>🏆 Best Project Award (2025–26):</strong> TCES Reactor Project.</li>
-                    <li><strong>Six Sigma White Belt:</strong> Continuous improvement tools.</li>
-                    <li><strong>Tata Technologies Ready Engineer:</strong> Advance Automobile Design.</li>
-                    <li><strong>CSWA-Certified in SolidWorks:</strong> Dassault Systèmes.</li>
-                    <li><strong>NPTEL Certification:</strong> Advanced Machining Processes.</li>
-                    <li><strong>Third Prize:</strong> "Mech-Dart" [Tech-Symposium 2K24].</li>
-                    <li><strong>Participations:</strong> AAKRUTI Global & IET Karmaveer Expo 2024.</li>
+            <div class="card reveal d2">
+                <div class="card-title"><span class="ic"><svg class="icon"><use href="#i-check"/></svg></span>Certifications</div>
+                <ul class="check-list">
+                    <li><span class="dot"><svg class="icon"><use href="#i-check"/></svg></span><div><strong>CSWA – Certified SolidWorks Associate</strong> · Dassault Systèmes</div></li>
+                    <li><span class="dot"><svg class="icon"><use href="#i-check"/></svg></span><div><strong>Tata Technologies Ready Engineer</strong> · Advanced Automobile Design</div></li>
+                    <li><span class="dot"><svg class="icon"><use href="#i-check"/></svg></span><div><strong>Six Sigma White Belt</strong> · Continuous improvement tools</div></li>
+                    <li><span class="dot"><svg class="icon"><use href="#i-check"/></svg></span><div><strong>NPTEL Certification</strong> · Advanced Machining Processes</div></li>
                 </ul>
-                <h3 style="margin-top: 35px; font-size: 1.2rem;">EXTRA-CURRICULAR</h3>
-                <ul class="standard-list" style="font-size: 0.95rem;">
-                    <li>MESA Committee Co-Ordinator</li>
-                    <li>Member of IME & SAE India</li>
-                    <li>Member of E-cell DKTE</li>
+
+                <div class="card-title sub-title"><span class="ic"><svg class="icon"><use href="#i-award"/></svg></span>Awards &amp; Recognition</div>
+                <ul class="check-list">
+                    <li><span class="dot"><svg class="icon"><use href="#i-award"/></svg></span><div><strong>Best Project Award (2025–26)</strong> · TCES Reactor Project</div></li>
+                    <li><span class="dot"><svg class="icon"><use href="#i-award"/></svg></span><div><strong>Third Prize</strong> · "Mech-Dart", Tech-Symposium 2K24</div></li>
+                    <li><span class="dot"><svg class="icon"><use href="#i-star"/></svg></span><div><strong>Participant</strong> · AAKRUTI Global &amp; IET Karmaveer Expo 2024</div></li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.9rem; margin-top: 30px;">
-        <p>&copy; 2026 Achyut Anant Deshpande.Designed & Built for My Own Future.</p>
+    <!-- 04 · CONTACT -->
+    <section class="section" id="contact">
+        <div class="section-header reveal">
+            <span class="section-tag">04 — Contact</span>
+            <h2>Let's Connect</h2>
+            <svg class="dim" aria-hidden="true"><use href="#dimline"/></svg>
+        </div>
+
+        <div class="card contact-card reveal d1">
+            <h3>Have a design challenge or an opportunity?</h3>
+            <p>I'm always happy to talk about mechanical design, material handling equipment, and new engineering roles.</p>
+            <div class="contact-grid">
+                <a class="contact-item" href="mailto:deshpandeachyut27@gmail.com">
+                    <span class="ic"><svg class="icon"><use href="#i-mail"/></svg></span>
+                    <div><small>Email</small><span>deshpandeachyut27@gmail.com</span></div>
+                </a>
+                <a class="contact-item" href="tel:+917420878362">
+                    <span class="ic"><svg class="icon"><use href="#i-phone"/></svg></span>
+                    <div><small>Phone</small><span>+91 74208 78362</span></div>
+                </a>
+                <a class="contact-item" href="https://www.linkedin.com/in/achyut-deshpande-b34369334" target="_blank" rel="noopener">
+                    <span class="ic"><svg class="icon"><use href="#i-linkedin"/></svg></span>
+                    <div><small>LinkedIn</small><span>Achyut Deshpande</span></div>
+                </a>
+                <div class="contact-item">
+                    <span class="ic"><svg class="icon"><use href="#i-pin"/></svg></span>
+                    <div><small>Location</small><span>Pune, Maharashtra</span></div>
+                </div>
+            </div>
+            <a href="Achyut_Deshpande_Resume.pdf" target="_blank" rel="noopener" class="btn btn-primary"><svg class="icon"><use href="#i-download"/></svg>Download Resume</a>
+        </div>
+    </section>
+
+    <!-- FOOTER (drawing title block) -->
+    <footer>
+        <div class="title-block">
+            <div class="tb-cell"><small>TITLE</small><strong>Portfolio — Achyut Anant Deshpande</strong></div>
+            <div class="tb-cell"><small>DRAWN BY</small><strong>A. A. Deshpande</strong></div>
+            <div class="tb-cell"><small>SCALE</small><strong>1 : 1</strong></div>
+            <div class="tb-cell"><small>SHEET</small><strong>1 OF 1</strong></div>
+            <div class="tb-cell"><small>REV.</small><strong>2026</strong></div>
+        </div>
+        <p class="copyright">&copy; 2026 Achyut Anant Deshpande · Pune, India</p>
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // --- TYPING ANIMATION ---
-            const titles = ["Mechanical Engineer", "Mechanical Design", "Material Handling", "Manufacturing Drawings"];
-            const typedTextSpan = document.querySelector(".typed-text");
-            const cursorSpan = document.querySelector(".cursor");
-            
-            let textArrayIdx = 0;
-            let charIdx = 0;
-            let isErasing = false;
-            
-            function typeEffect() {
-                const currentText = titles[textArrayIdx];
-                if (!isErasing) {
-                    typedTextSpan.textContent = currentText.substring(0, charIdx + 1);
-                    charIdx++;
-                    cursorSpan.classList.add("typing");
-                    
-                    if (charIdx === currentText.length) {
-                        isErasing = true;
-                        cursorSpan.classList.remove("typing");
-                        setTimeout(typeEffect, 2000); 
-                    } else {
-                        setTimeout(typeEffect, 70); 
-                    }
-                } else {
-                    typedTextSpan.textContent = currentText.substring(0, charIdx - 1);
-                    charIdx--;
-                    cursorSpan.classList.add("typing");
-                    
-                    if (charIdx === 0) {
-                        isErasing = false;
-                        textArrayIdx = (textArrayIdx + 1) % titles.length;
-                        cursorSpan.classList.remove("typing");
-                        setTimeout(typeEffect, 500); 
-                    } else {
-                        setTimeout(typeEffect, 30); 
-                    }
-                }
-            }
-            setTimeout(typeEffect, 1000);
+        document.addEventListener("DOMContentLoaded", () => {
+            const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-            // --- CASCADING SCROLL REVEAL ---
-            const revealElements = document.querySelectorAll('.reveal-up');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        observer.unobserve(entry.target); 
+            /* TYPING ANIMATION */
+            const titles = ["Mechanical Design Engineer", "CAD Modelling", "Material Handling Equipment", "Manufacturing Drawings"];
+            const typed = document.querySelector(".typed-text");
+            const cursor = document.querySelector(".cursor");
+            if (reduceMotion) {
+                typed.textContent = titles[0];
+            } else {
+                let t = 0, c = 0, erasing = false;
+                const tick = () => {
+                    const word = titles[t];
+                    cursor.classList.add("typing");
+                    if (!erasing) {
+                        typed.textContent = word.substring(0, ++c);
+                        if (c === word.length) { erasing = true; cursor.classList.remove("typing"); return setTimeout(tick, 2000); }
+                        setTimeout(tick, 70);
+                    } else {
+                        typed.textContent = word.substring(0, --c);
+                        if (c === 0) { erasing = false; t = (t + 1) % titles.length; cursor.classList.remove("typing"); return setTimeout(tick, 450); }
+                        setTimeout(tick, 30);
                     }
+                };
+                setTimeout(tick, 800);
+            }
+
+            /* SCROLL REVEAL */
+            const revealObs = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) { e.target.classList.add("active"); revealObs.unobserve(e.target); }
                 });
             }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+            document.querySelectorAll(".reveal:not(.active)").forEach(el => revealObs.observe(el));
 
-            revealElements.forEach(el => observer.observe(el));
+            /* NAVBAR shadow + progress bar */
+            const nav = document.getElementById("nav");
+            const progress = document.getElementById("progress");
+            const onScroll = () => {
+                nav.classList.toggle("scrolled", window.scrollY > 30);
+                const max = document.documentElement.scrollHeight - window.innerHeight;
+                progress.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
+            };
+            window.addEventListener("scroll", onScroll, { passive: true });
+            onScroll();
 
-            // --- 3D LIQUID GLASS HOVER EFFECT ---
-            if (window.innerWidth > 992) {
-                const cards = document.querySelectorAll(".glass-card");
-                
-                cards.forEach(card => {
-                    card.addEventListener("mousemove", (e) => {
-                        const rect = card.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        
-                        const centerX = rect.width / 2;
-                        const centerY = rect.height / 2;
-                        
-                        const rotateX = ((y - centerY) / centerY) * -8; 
-                        const rotateY = ((x - centerX) / centerX) * 8;
-                        
-                        card.style.transform = `perspective(1000px) scale3d(1.02, 1.02, 1.02) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            /* Highlight current section in nav */
+            const links = document.querySelectorAll('.nav-links a[href^="#"]');
+            const sectionObs = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        links.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + e.target.id));
+                    }
+                });
+            }, { rootMargin: "-45% 0px -50% 0px" });
+            document.querySelectorAll("section[id]").forEach(s => sectionObs.observe(s));
+
+            /* MOBILE MENU */
+            const menuBtn = document.getElementById("menuBtn");
+            const navLinks = document.getElementById("navLinks");
+            menuBtn.addEventListener("click", () => {
+                const open = navLinks.classList.toggle("open");
+                menuBtn.setAttribute("aria-expanded", open);
+            });
+            navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+                navLinks.classList.remove("open");
+                menuBtn.setAttribute("aria-expanded", "false");
+            }));
+
+            /* Subtle 3D tilt on project cards (desktop only) */
+            if (!reduceMotion && window.matchMedia("(min-width: 993px) and (pointer: fine)").matches) {
+                document.querySelectorAll(".tilt").forEach(card => {
+                    card.addEventListener("mousemove", e => {
+                        const r = card.getBoundingClientRect();
+                        const rx = ((e.clientY - r.top) / r.height - 0.5) * -6;
+                        const ry = ((e.clientX - r.left) / r.width - 0.5) * 6;
+                        card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
                     });
-
-                    card.addEventListener("mouseleave", () => {
-                        card.style.transform = `perspective(1000px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg)`;
-                    });
+                    card.addEventListener("mouseleave", () => { card.style.transform = ""; });
                 });
             }
         });
